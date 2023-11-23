@@ -18,7 +18,7 @@ const Details = ({ data, theme }) => {
                 <Box display="flex" align="center">
                     <Rating readOnly value={data?.vote_average / 2} precision={0.1} />
                     <Typography variant="subtitle1" ml="10px" gutterBottom>
-                        {Math.round(data?.vote_average * 5) / 10} / 5
+                        {Math.ceil(data?.vote_average * 5) / 10} / 5
                     </Typography>
                 </Box>
                 <Typography variant="h6" align="center" gutterBottom sx={{ ml: '15px !important' }}>

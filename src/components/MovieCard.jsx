@@ -21,13 +21,14 @@ const MovieCard = ({ movie, i, theme }) => {
                         background: theme.palette.mode === 'light' ? '#ececec' : '#1a1a1a',
                         mt: "3rem",
                         height: { xs: "auto", sm: "570px", lg: "630px" },
+                        '&:hover img': { transform: 'scale(1.05)' },
                     }}
                 >
                     <Box
                         component="img"
                         sx={{
                             width: '100%',
-                            '&:hover': { transform: 'scale(1.05)' },
+                            transition: 'all 100ms ease',
                             mt: '-20px',
                             borderRadius: "10px 10px 0 0"
                         }}
@@ -44,9 +45,9 @@ const MovieCard = ({ movie, i, theme }) => {
                             {movie?.title}
                         </Typography>
                         <Box alignItems="center" display="flex" justifyContent="space-between" mt="1rem">
-                            <Tooltip arrow disableTouchListener title={`${Math.round(movie?.vote_average * 10) / 10} / 10`}>
+                            <Tooltip arrow disableTouchListener title={`${Math.ceil(movie?.vote_average * 10) / 10} / 10`}>
                                 <div>
-                                    <Rating size={isMobile ? 'medium' : 'small'} readOnly value={Math.round(movie?.vote_average * 10) / 20} precision={0.1} />
+                                    <Rating size={isMobile ? 'medium' : 'small'} readOnly value={Math.ceil(movie?.vote_average * 10) / 20} precision={0.1} />
                                 </div>
                             </Tooltip>
                             <Typography color={theme.palette.mode === 'light' ? "#000" : '#fff'} sx={{ fontSize: { xs: '18px', sm: '14px' } }}>

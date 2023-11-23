@@ -29,8 +29,8 @@ const Buttons = ({ data, theme, setOpenModal, isMovieFavorited, isMovieWatchList
             <Button onClick={addToWatchList} endIcon={isMovieWatchListed ? <RemoveCircleOutline /> : <AddCircleOutline />}>
               Watchlist
             </Button>
-            <Button endIcon={<ArrowBack />}>
-              <Typography onClick={() => window.history.back()} color="inherit" sx={{ textDecoration: 'none' }} variant="subtitle2">back</Typography>
+            <Button endIcon={<ArrowBack />} onClick={() => window.history.back()}>
+              <Typography color="inherit" sx={{ textDecoration: 'none' }} variant="subtitle2">back</Typography>
             </Button>
           </ButtonGroup>
         </Grid>

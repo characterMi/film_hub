@@ -43,7 +43,7 @@ const Navbar = ({ theme }) => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ maxWidth: '1600px', left: 0 }} >
         <Toolbar sx={{ height: '80px', ml: { xs: 0, md: '240px' }, display: 'flex', justifyContent: 'space-between', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
           <IconButton
             color="inherit"
@@ -63,12 +63,12 @@ const Navbar = ({ theme }) => {
                 Login &nbsp; <AccountCircle />
               </Button>
             ) : (
-              <Button color={theme.palette.mode === 'light' ? 'inherit' : 'error'} to={`/profile/${user.id}`} component={Link} sx={{ '&:hover': { color: '#fff !important', textDecoration: 'none' } }}>
-                {!isMobile && <>{user?.username} &nbsp;</>}
+              <Button color={theme.palette.mode === 'light' ? 'inherit' : 'error'} to={`/profile`} component={Link} sx={{ '&:hover': { color: '#fff !important', textDecoration: 'none' } }}>
+                {!isMobile && <>{user?.name ? user?.name : user?.username} &nbsp;</>}
                 <Avatar
                   sx={{ width: 30, height: 30 }}
-                  alt="Profile"
-                  src='https://hwchamber.co.uk/wp-content/uploads/2022/04/avatar-placeholder.gif'
+                  alt={user?.username}
+                  src={`https://www.themoviedb.org/t/p/w64_and_h64_face/${user?.avatar?.tmdb?.avatar_path}`}
                 />
               </Button>
             )}

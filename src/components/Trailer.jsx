@@ -14,7 +14,7 @@ const Trailer = ({ data, openModal, setOpenModal }) => (
         {data?.videos?.results?.length > 0
             ? (
                 <>
-                    <Typography onClick={() => setOpenModal(false)} variant="h3" color="#fff" sx={{ position: 'absolute', top: '1rem', right: '1rem', fontWeight: 'bolder', zIndex: '1000000', cursor: 'pointer' }}>
+                    <Typography onClick={() => setOpenModal(false)} variant="h3" color="#fff" sx={{ position: 'absolute', top: '1rem', right: '1rem', fontWeight: 'bolder', cursor: 'pointer', p: 2 }}>
                         X
                     </Typography>
                     <Box

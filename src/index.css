@@ -11,6 +11,10 @@
   /* Firefox */
 }
 
+body {
+  max-width: 1600px;
+}
+
 .root {
   display: flex;
   height: 100%;

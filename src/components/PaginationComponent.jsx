@@ -21,7 +21,7 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
       }}
     >
       {
-        movies?.results?.length > 0 &&
+        movies?.results?.length > 0 ?
         (
           <Pagination
             color={theme.palette.mode === 'light' ? "primary" : "error"}
@@ -32,7 +32,8 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
             onChange={paginate}
             size={isMobile ? "medium" : "large"}
           />
-        )
+        ) :
+        null
       }
     </Box>
   )
