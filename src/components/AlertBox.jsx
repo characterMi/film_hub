@@ -3,7 +3,7 @@ import { Box, Button, Modal, Typography } from "@mui/material"
 const AlertBox = ({ setAlertBox, alertBox, theme }) => {
     const logout = () => {
         localStorage.clear();
-        window.location.href = '/'
+        window.location.href = window.location.origin
     }
     return (
         <Modal

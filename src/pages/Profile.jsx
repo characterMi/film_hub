@@ -30,7 +30,7 @@ const Profile = ({ theme }) => {
 
   if (favoriteMoviesError || watchListMoviesError) {
     return (
-      <Error backButton theme={theme} text="Something went wrong, Check your connection !" />
+      <Error backButton theme={theme} text="Something went wrong !" />
     )
   }
 
