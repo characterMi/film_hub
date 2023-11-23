@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/film_hub/static/css/main.10bc9576.css",
-    "main.js": "/film_hub/static/js/main.3398c69c.js",
+    "main.js": "/film_hub/static/js/main.e05810b2.js",
     "static/media/LOGO_DARKTHEME.png": "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
     "static/media/LOGO_LIGHTTHEME.png": "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
     "index.html": "/film_hub/index.html",
     "main.10bc9576.css.map": "/film_hub/static/css/main.10bc9576.css.map",
-    "main.3398c69c.js.map": "/film_hub/static/js/main.3398c69c.js.map"
+    "main.e05810b2.js.map": "/film_hub/static/js/main.e05810b2.js.map"
   },
   "entrypoints": [
     "static/css/main.10bc9576.css",
-    "static/js/main.3398c69c.js"
+    "static/js/main.e05810b2.js"
   ]
 }
