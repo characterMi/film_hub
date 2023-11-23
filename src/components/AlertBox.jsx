@@ -3,7 +3,7 @@ import { Box, Button, Modal, Typography } from "@mui/material"
 const AlertBox = ({ setAlertBox, alertBox, theme }) => {
     const logout = () => {
         localStorage.clear();
-        window.location.href = window.location.origin
+        window.location.href = `${window.location.origin}/film_hub/`
     }
     return (
         <Modal
@@ -20,7 +20,7 @@ const AlertBox = ({ setAlertBox, alertBox, theme }) => {
                 sx={{
                     width: 'max-content',
                     p: 2,
-                    backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#000',
+                    backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#1a1a1a',
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
