@@ -1,11 +1,13 @@
 import { Divider, List, ListSubheader } from '@mui/material'
 import { Link } from 'react-router-dom'
-import genreIcons from "../assets/genres"
+import genreIcons from "../assets/genres";
+import { useEffect } from 'react';
 
 import LightLogo from '../assets/logo/LOGO_LIGHTTHEME.png';
 import DarkLogo from '../assets/logo/LOGO_DARKTHEME.png';
 import { useGetGenresQuery } from '../services/TMDB';
 import { CategoryAndGenre, Error, Loader } from './';
+import { useSelector } from 'react-redux';
 
 const categories = [
     { label: 'Popular', value: 'popular' },
@@ -13,8 +15,13 @@ const categories = [
     { label: 'Upcoming', value: 'upcoming' },
 ];
 
-const Sidebar = ({ theme }) => {
+const Sidebar = ({ theme, setMobileOpen }) => {
     const { data, error, isFetching } = useGetGenresQuery();
+    const { genreIdOrCategoryName } = useSelector((state) => state.currentGenreOrCategory)
+    
+    useEffect(() => {
+      setMobileOpen(false)
+    }, [genreIdOrCategoryName])
 
     if (error) {
         return (

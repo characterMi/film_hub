@@ -8,7 +8,7 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
       top: 0, behavior: "smooth"
     })
   };
-  console.log(movies)
+  
   const isMobile = useMediaQuery('(max-width:600px)')
 
   return (
@@ -21,7 +21,7 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
       }}
     >
       {
-        movies?.total_pages > 1 ?
+        !!movies?.total_pages ?
         (
           <Pagination
             color={theme.palette.mode === 'light' ? "primary" : "error"}

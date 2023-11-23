@@ -87,11 +87,11 @@ const Navbar = ({ theme }) => {
               sx={{ "& .MuiDrawer-paper": { width: '240px' } }}
               ModalProps={{ keepMounted: true }}
             >
-              <Sidebar theme={theme} />
+              <Sidebar theme={theme} setMobileOpen={setMobileOpen} />
             </Drawer>
           ) : (
             <Drawer sx={{ "& .MuiDrawer-paper": { width: '240px' } }} variant="permanent" open>
-              <Sidebar theme={theme} />
+              <Sidebar theme={theme} setMobileOpen={setMobileOpen} />
             </Drawer>
           )}
         </Box>

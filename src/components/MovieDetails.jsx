@@ -16,6 +16,7 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
     const [isMovieFavorited, setIsMovieFavorited] = useState(false)
     const [isMovieWatchListed, setIsMovieWatchListed] = useState(false)
 
+
     // Post the favorite or watchlist movies to the tmdb's database
 
     const addToFavorite = async () => {
@@ -48,6 +49,7 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
             alert('Sorry, an Error has been occurred. try again')
         }
     }
+
 
     // Check if the user already add the movie to watchlist or favorites
 
