@@ -25,10 +25,10 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
                 media_id: id,
                 favorite: !isMovieFavorited
             })
+            setIsMovieFavorited(prev => !prev)
         } catch (error) {
             console.log(error);
         }
-        setIsMovieFavorited(prev => !prev)
         if (favoriteMoviesError) {
             alert('Sorry, an Error has been occurred. try again')
         }
@@ -40,10 +40,10 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
                 media_id: id,
                 watchlist: !isMovieWatchListed
             })
+            setIsMovieWatchListed(prev => !prev)
         } catch (error) {
             console.log(error);
         }
-        setIsMovieWatchListed(prev => !prev)
         if (watchListMoviesError) {
             alert('Sorry, an Error has been occurred. try again')
         }
