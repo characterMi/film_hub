@@ -1,9 +1,11 @@
 import { Box, Button, Modal, Typography } from "@mui/material"
+import { toast } from "react-toastify";
 
 const AlertBox = ({ setAlertBox, alertBox, theme }) => {
     const logout = () => {
         localStorage.clear();
-        window.location.href = `${window.location.origin}/film_hub/`
+        window.location.href = `${window.location.origin}/film_hub`
+        toast.error('You Logged out !')
     }
     return (
         <Modal

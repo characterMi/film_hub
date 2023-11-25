@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const moviesApi = axios.create({
     baseURL: 'https://api.themoviedb.org/3',
@@ -13,7 +14,7 @@ export const fetchToken = async () => {
         const token = data.request_token
         if (data.success) {
             localStorage.setItem('request_token', token);
-            window.location.href = `https://www.themoviedb.org/authenticate/${token}`
+            window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/film_hub`
         }
     } catch (err) {
         console.log('Sorry, your token could not be created.');
@@ -29,6 +30,11 @@ export const createSessionId = async () => {
                 request_token: token
             })
             localStorage.setItem('session_id', session_id)
+            if (session_id) {
+                toast.success('You Logged in successfully !')
+            } else {
+                toast.error('Sorry, there was an error !')
+            }
             return session_id
         } catch (error) {
             console.log(error);

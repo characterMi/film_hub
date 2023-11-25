@@ -1,10 +1,14 @@
 import axios from 'axios';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import { Buttons, TopCast, Details, Poster } from ".";
 import { useSelector } from 'react-redux';
 import { userSelector } from '../features/auth';
 import { useGetListQuery } from '../services/TMDB';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import BG_RED from "../assets/backgrounds/bg_03_red.png"
+import BG_BLUE from "../assets/backgrounds/bg_03_blue.png"
 
 const MovieDetails = ({ data, setOpenModal, id, theme }) => {
     const { user } = useSelector(userSelector)
@@ -27,11 +31,16 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
                 favorite: !isMovieFavorited
             })
             setIsMovieFavorited(prev => !prev)
+            if (!isMovieFavorited) {
+                toast.success("Movie successfully added to favorites !")
+            } else {
+                toast.error("Movie removed from favorites !")
+            }
         } catch (error) {
             console.log(error);
         }
         if (favoriteMoviesError) {
-            alert('Sorry, an Error has been occurred. try again')
+            toast.error("Sorry, an Error has been occurred. if You're not Logged in, please first Login !")
         }
     }
     const addToWatchList = async () => {
@@ -42,11 +51,16 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
                 watchlist: !isMovieWatchListed
             })
             setIsMovieWatchListed(prev => !prev)
+            if (!isMovieWatchListed) {
+                toast.success("Movie successfully added to watchlist !")
+            } else {
+                toast.error("Movie removed from watchlist !")
+            }
         } catch (error) {
             console.log(error);
         }
         if (watchListMoviesError) {
-            alert('Sorry, an Error has been occurred. try again')
+            toast.error("Sorry, an Error has been occurred. if You're not Logged in, please first Login !")
         }
     }
 
@@ -72,8 +86,24 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
     return (
         <>
             {/* Movie Poster */}
-            <Grid item xs={12} sm={data?.poster_path ? 6 : 0} md={data?.poster_path ? 5 : 0} >
-                <Poster w="w500" path={data?.poster_path} title={data?.title} theme={theme} />
+            <Grid sx={{ position: 'relative' }} item xs={12} sm={data?.poster_path ? 6 : 0} md={data?.poster_path ? 5 : 0} >
+                <Box
+                    component="img"
+                    sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: { xs: '100vw', sm: 'calc(100vw - 240px)' },
+                        height: '107%',
+                        zIndex: '-1',
+                        mx: '-1em',
+                        my: '-1.6rem',
+                        transform: 'rotateZ(180deg)'
+                    }}
+                    alt="background"
+                    src={theme.palette.mode === 'light' ? BG_BLUE : BG_RED}
+                />
+                <Poster w="w500" path={data?.poster_path} title={data?.title} />
             </Grid>
             {/* Movie Details */}
             <Grid item container direction="column" xs={12} sm={data?.poster_path ? 6 : 12} md={data?.poster_path ? 7 : 12} sx={{ px: { xs: 0, sm: 2, lg: 5 }, mt: { xs: 4, sm: 0 } }}>

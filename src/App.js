@@ -1,13 +1,16 @@
 import { CssBaseline, useTheme } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
-
 import { Navbar, Movies } from './components'
 import { Actors, MovieInformation, Profile } from './pages'
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const theme = useTheme()
   return (
     <div className='root'>
+      <ToastContainer position="top-right" theme="colored" />
       <CssBaseline />
       <Navbar theme={theme} />
       <main className='content'>

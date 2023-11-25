@@ -18,7 +18,7 @@ const Navbar = ({ theme }) => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const token = localStorage.getItem('request_token')
   const session_IdFromLocalStorage = localStorage.getItem('session_id')
-  
+
   useEffect(() => {
     const loginUser = async () => {
       if (token) {
