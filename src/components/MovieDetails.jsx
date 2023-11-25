@@ -40,7 +40,7 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
             console.log(error);
         }
         if (favoriteMoviesError) {
-            toast.error("Sorry, an Error has been occurred. if You're not Logged in, please first Login !")
+            toast.error("Sorry, an error has occurred. if you are not logged in, please first login !")
         }
     }
     const addToWatchList = async () => {
@@ -60,7 +60,7 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
             console.log(error);
         }
         if (watchListMoviesError) {
-            toast.error("Sorry, an Error has been occurred. if You're not Logged in, please first Login !")
+            toast.error("Sorry, an error has occurred. if you are not logged in, please first login !")
         }
     }
 
