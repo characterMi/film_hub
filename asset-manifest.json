@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/film_hub/static/css/main.3731b0c0.css",
-    "main.js": "/film_hub/static/js/main.a807ee51.js",
-    "static/media/bg_03_blue.png": "/film_hub/static/media/bg_03_blue.5836ab67eec620a111fc.png",
-    "static/media/bg_03_red.png": "/film_hub/static/media/bg_03_red.d0225e1fa9662f1488ad.png",
+    "main.css": "/film_hub/static/css/main.8d753e34.css",
+    "main.js": "/film_hub/static/js/main.17ffccfc.js",
+    "static/media/bg_01_blue.png": "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
+    "static/media/bg_01_red.png": "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
     "static/media/LOGO_DARKTHEME.png": "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
     "static/media/LOGO_LIGHTTHEME.png": "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
     "index.html": "/film_hub/index.html",
-    "main.3731b0c0.css.map": "/film_hub/static/css/main.3731b0c0.css.map",
-    "main.a807ee51.js.map": "/film_hub/static/js/main.a807ee51.js.map"
+    "main.8d753e34.css.map": "/film_hub/static/css/main.8d753e34.css.map",
+    "main.17ffccfc.js.map": "/film_hub/static/js/main.17ffccfc.js.map"
   },
   "entrypoints": [
-    "static/css/main.3731b0c0.css",
-    "static/js/main.a807ee51.js"
+    "static/css/main.8d753e34.css",
+    "static/js/main.17ffccfc.js"
   ]
 }
