@@ -43,7 +43,7 @@ const Navbar = ({ theme }) => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ maxWidth: '1600px', left: 0 }} >
+      <AppBar position="fixed">
         <Toolbar sx={{ height: '80px', ml: { xs: 0, md: '240px' }, display: 'flex', justifyContent: 'space-between', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
           <IconButton
             color="inherit"

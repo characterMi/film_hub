@@ -12,12 +12,15 @@
 }
 
 body {
-  max-width: 1600px;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
 }
 
 .root {
   display: flex;
   height: 100%;
+  max-width: 1600px;
 }
 
 .content {

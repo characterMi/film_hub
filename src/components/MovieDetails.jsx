@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import { Buttons, TopCast, Details, Poster } from ".";
 import { useSelector } from 'react-redux';
 import { userSelector } from '../features/auth';
@@ -7,8 +7,8 @@ import { useGetListQuery } from '../services/TMDB';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import BG_RED from "../assets/backgrounds/bg_03_red.png"
-import BG_BLUE from "../assets/backgrounds/bg_03_blue.png"
+import BG_RED from "../assets/backgrounds/bg_01_red.png"
+import BG_BLUE from "../assets/backgrounds/bg_01_blue.png"
 
 const MovieDetails = ({ data, setOpenModal, id, theme }) => {
     const { user } = useSelector(userSelector)
@@ -93,12 +93,12 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
                         position: 'absolute',
                         top: 0,
                         left: 0,
-                        width: { xs: '100vw', sm: 'calc(100vw - 240px)' },
+                        width: { xs: '100vw', md: 'calc(100vw - 240px)' },
                         height: '107%',
                         zIndex: '-1',
-                        mx: '-1em',
+                        mx: { xs: '-0.3rem', sm: '-1rem' },
                         my: '-1.6rem',
-                        transform: 'rotateZ(180deg)'
+                        maxWidth: '1360px'
                     }}
                     alt="background"
                     src={theme.palette.mode === 'light' ? BG_BLUE : BG_RED}
@@ -106,8 +106,29 @@ const MovieDetails = ({ data, setOpenModal, id, theme }) => {
                 <Poster w="w500" path={data?.poster_path} title={data?.title} />
             </Grid>
             {/* Movie Details */}
-            <Grid item container direction="column" xs={12} sm={data?.poster_path ? 6 : 12} md={data?.poster_path ? 7 : 12} sx={{ px: { xs: 0, sm: 2, lg: 5 }, mt: { xs: 4, sm: 0 } }}>
+            <Grid
+                item
+                container
+                direction="column"
+                xs={12}
+                sm={data?.poster_path ? 6 : 12}
+                md={data?.poster_path ? 7 : 12}
+                sx={{
+                    px: { xs: 0, sm: 2, lg: 5 },
+                    mt: { xs: 4, sm: 0 },
+                    backdropFilter: { xs: 'none', sm: 'blur(3px)' },
+                    borderRadius: '0 20px 20px 0',
+                }}
+            >
                 <Details data={data} theme={theme} />
+            </Grid>
+            <Grid item sx={{ display: 'flex', flexDirection: 'column', mt: "40px", justifyContent: 'center', alignItems: 'center' }}>
+                <Typography variant="h4" gutterBottom>
+                    Overview
+                </Typography>
+                <Typography mb="2rem" align="center">
+                    {data?.overview}
+                </Typography>
             </Grid>
             {/* TopCast and Action Buttons: Website, IMDB, Trailer, Add to Favorite, Add to watchlist, Back to previous page */}
             <Grid item container xs={12} mt={5}>

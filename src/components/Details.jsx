@@ -6,12 +6,22 @@ import { Link } from "react-router-dom";
 
 const Details = ({ data, theme }) => {
     const dispatch = useDispatch()
+    let runTime = null;
+
+    if (data?.runtime < 60) {
+        runTime = `${data?.runtime}m`
+    } else {
+        const minutes = data?.runtime % 60
+        const hours = (data?.runtime - minutes) / 60;
+        runTime = `${hours}h ${minutes}m`
+    }
+
     return (
         <>
-            <Typography sx={{ fontSize: { xs: '38px', sm: '32px', md: '38px', lg: '46px', xl: '66px' } }} align="center" gutterBottom>
+            <Typography sx={{ fontSize: { xs: '38px', sm: '32px', md: '28px', lg: '46px', xl: '66px' } }} align="center" gutterBottom>
                 {data?.title} ({data?.release_date.split('-')[0]})
             </Typography>
-            <Typography variant="h5" align="center" gutterBottom>
+            <Typography sx={{ fontSize: { xs: '24px', sm: '18px', md: '20px', lg: '26px', xl: '36px' } }} align="center" gutterBottom>
                 {data?.tagline}
             </Typography>
             <Grid item className='container-space-around' sx={{ flexWrap: "wrap !important" }}>
@@ -22,7 +32,7 @@ const Details = ({ data, theme }) => {
                     </Typography>
                 </Box>
                 <Typography variant="h6" align="center" gutterBottom sx={{ ml: '15px !important' }}>
-                    {data?.runtime}min | Language: {data?.original_language?.toUpperCase()}
+                    Duration: {runTime} | Language: {data?.original_language?.toUpperCase()}
                 </Typography>
             </Grid>
             <Grid item sx={{ m: '10px 0 !important', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
@@ -35,12 +45,11 @@ const Details = ({ data, theme }) => {
                     </Box>
                 ))}
             </Grid>
-            <Typography variant="h5" gutterBottom mt="10px">
-                Overview
-            </Typography>
-            <Typography mb="2rem">
-                {data?.overview}
-            </Typography>
+            <Grid item className='container-space-around' sx={{ flexDirection: { xs: 'row', xl: "column !important" }, flexWrap: 'wrap' }}>
+                <Typography variant="h6" sx={{ mt: { xs: '20px', xl: '50px' } }} ml="10px">| Status: {data?.status}</Typography>
+                <Typography variant="h6" sx={{ mt: { xs: '20px', xl: '50px' } }} ml="10px">| Budget: ${data?.budget?.toLocaleString()}</Typography>
+                <Typography variant="h6" sx={{ mt: { xs: '20px', xl: '50px' } }} ml="10px">| Revenue: ${data?.revenue?.toLocaleString()}</Typography>
+            </Grid>
         </>
     )
 }
