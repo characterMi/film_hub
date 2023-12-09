@@ -11,16 +11,10 @@
   /* Firefox */
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  overflow-x: hidden;
-}
-
 .root {
+  max-width: 1600px;
   display: flex;
   height: 100%;
-  max-width: 1600px;
 }
 
 .content {
@@ -37,7 +31,7 @@ body {
   display: flex;
   justify-content: space-around;
   margin: 10px 0 !important;
-  flex-direction: 'row';
+  flex-direction: "row";
 }
 
 .buttons-container {
@@ -47,7 +41,7 @@ body {
   flex-wrap: wrap;
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width: 600px) {
   .search-box {
     display: flex;
     justify-content: center;
