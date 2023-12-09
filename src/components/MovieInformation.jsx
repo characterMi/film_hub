@@ -135,7 +135,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
             width: { xs: "100vw", md: "calc(100vw - 240px)" },
             height: "107%",
             zIndex: "-1",
-            mx: { xs: "-0.3rem", sm: "-1rem" },
+            mx: { xs: "-1rem", sm: "-1rem" },
             my: "-1.6rem",
             maxWidth: "1360px",
           }}
