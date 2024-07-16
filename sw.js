@@ -26,15 +26,15 @@ self.addEventListener("fetch", (event) => {
       // and update the cache for future usage
       const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
-          if (!networkResponse.ok) return;
+          // if (!networkResponse.ok) return;
 
-          if (networkResponse) {
+          if (networkResponse.ok && networkResponse) {
             caches.open("assets").then((cache) => {
               cache.put(event.request, networkResponse.clone());
             });
           }
 
-          return networkResponse;
+          // return networkResponse;
         })
         .catch((e) => console.error("Error fetching the data: ", e));
       // We use the currently cached version if it's there
