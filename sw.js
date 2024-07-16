@@ -31,10 +31,9 @@ self.addEventListener("fetch", (event) => {
           if (networkResponse.ok && networkResponse) {
             caches.open("assets").then((cache) => {
               cache.put(event.request, networkResponse.clone());
+              return networkResponse;
             });
           }
-
-          // return networkResponse;
         })
         .catch((e) => console.error("Error fetching the data: ", e));
       // We use the currently cached version if it's there
