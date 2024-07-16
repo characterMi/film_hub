@@ -1,10 +1,10 @@
 const assets = [
   "/film_hub",
   "/film_hub/icons/filmhub-192.png",
-  "/film_hub/static/css/main.fe667282.css",
-  "/film_hub/static/css/main.fe667282.css.map",
-  "/film_hub/static/js/main.5310856b.js",
-  "/film_hub/static/js/main.5310856b.js.map",
+  "/film_hub/static/css/main.c1188d57.css",
+  "/film_hub/static/css/main.c1188d57.css.map",
+  "/film_hub/static/js/main.429a2dfd.js",
+  "/film_hub/static/js/main.429a2dfd.js.map",
   "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
   "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
   "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
@@ -26,8 +26,16 @@ self.addEventListener("fetch", (event) => {
       // and update the cache for future usage
       const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
+          // if we cache our resources with the event.request, api keys is going to expose.
+          const requestUrl = new URL(event.request.url);
+
+          requestUrl.searchParams.delete(
+            "api_key",
+            process.env.REACT_APP_TMDB_API_KEY
+          );
+
           return caches.open("assets").then((cache) => {
-            cache.put(event.request, networkResponse.clone());
+            cache.put(requestUrl.toString(), networkResponse.clone());
             return networkResponse;
           });
         })
@@ -35,7 +43,7 @@ self.addEventListener("fetch", (event) => {
           console.error(e);
 
           return new Response(
-            "Netwotk error and no cached data available. see the browser's console for more information",
+            "Network error and no cached data available. see the browser's console for more information",
             {
               status: 503,
               statusText: "Service Unavailable.",
