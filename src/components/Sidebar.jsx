@@ -1,13 +1,13 @@
 import { Divider, List, ListSubheader } from "@mui/material";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import genreIcons from "../assets/genres";
-import { useEffect } from "react";
 
-import LightLogo from "../assets/logo/LOGO_LIGHTTHEME.png";
+import { useSelector } from "react-redux";
 import DarkLogo from "../assets/logo/LOGO_DARKTHEME.png";
+import LightLogo from "../assets/logo/LOGO_LIGHTTHEME.png";
 import { useGetGenresQuery } from "../services/TMDB";
 import { CategoryAndGenre, Error, Loader } from "./";
-import { useSelector } from "react-redux";
 
 const categories = [
   { label: "Popular", value: "popular" },
@@ -25,9 +25,8 @@ const Sidebar = ({ theme, setMobileOpen }) => {
     setMobileOpen(false);
   }, [genreIdOrCategoryName]);
 
-  if (error) {
-    return <Error text="Oops ! No results" />;
-  }
+  if (error) return <Error text="Oops ! No results" />;
+
   return (
     <>
       <Link
@@ -55,7 +54,7 @@ const Sidebar = ({ theme, setMobileOpen }) => {
       </List>
       <Divider />
       {isFetching ? (
-        <Loader theme={theme} size="4rem" />
+        <Loader size="4rem" />
       ) : (
         <List>
           <ListSubheader>Genres</ListSubheader>

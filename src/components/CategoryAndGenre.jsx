@@ -1,7 +1,7 @@
 import { Box, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
-import { useDispatch } from "react-redux";
 
 const CategoryAndGenre = ({ theme, value, src, text }) => {
   const dispatch = useDispatch();

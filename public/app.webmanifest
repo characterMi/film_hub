@@ -1,0 +1,43 @@
+{
+  "id": "/film_hub/",
+  "name": "FilmHub",
+  "short_name": "FilmHub",
+  "description": "Filmhub is a comprehensive app for movie lovers. The app features a wide variety of movie from all over the world. Users can use the app to find their favorite movies and get comprehensive information about them.",
+  "start_url": ".",
+  "orientation": "portrait",
+  "theme_color": "#000000",
+  "scope": ".",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/film_hub/icons/filmhub-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/film_hub/icons/filmhub-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/film_hub/icons/filmhub-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "background_color": "#000000",
+  "screenshots": [
+    {
+      "src": "/film_hub/icons/filmhub_first.png",
+      "sizes": "1024x768",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/film_hub/icons/filmhub_responsive.png",
+      "sizes": "339x747",
+      "type": "image/png"
+    }
+  ]
+}

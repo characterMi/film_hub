@@ -10,11 +10,10 @@ const RecommendedAndActorMovies = ({
   page,
   setCurrentPage,
 }) => {
-  if (loading) {
-    return <Loader theme={theme} size="8rem" />;
-  } else if (error) {
-    return <Error backButton text="Oops ! No results" />;
-  }
+  if (loading) return <Loader size="8rem" />;
+
+  if (error) return <Error backButton text="Oops ! No results" />;
+
   return (
     <Box mt="5rem" width="100%">
       <Typography variant="h3" align="center" gutterBottom mt={3}>

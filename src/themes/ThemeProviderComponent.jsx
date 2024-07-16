@@ -1,13 +1,24 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
 export const ColorModeContext = createContext();
 
 const ThemeProviderComponent = ({ children }) => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const theme = useMemo(
     () =>
       createTheme({
+        breakpoints: {
+          values: {
+            xs: 0,
+            sm: 600,
+            md: 900,
+            mdl: 1000,
+            lg: 1200,
+            lgl: 1300,
+            xl: 1536,
+          }
+        },
         palette: {
           mode,
         },
@@ -16,20 +27,14 @@ const ThemeProviderComponent = ({ children }) => {
   );
   const toggleColorMode = () => {
     if (mode === "light") {
-      localStorage.removeItem("mode");
       localStorage.setItem("mode", "dark");
-      setMode(localStorage.getItem("mode"));
-    } else if (mode === "dark") {
-      localStorage.removeItem("mode");
-      localStorage.setItem("mode", "light");
-      setMode(localStorage.getItem("mode"));
+      return setMode("dark");
     }
+
+    localStorage.setItem("mode", "light");
+    setMode("light");
   };
-  useEffect(() => {
-    if (!!localStorage.getItem("mode")) {
-      setMode(localStorage.getItem("mode"));
-    }
-  }, []);
+
   return (
     <ColorModeContext.Provider value={{ mode, setMode, toggleColorMode }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>

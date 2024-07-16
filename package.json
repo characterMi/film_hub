@@ -1,7 +1,7 @@
 {
   "homepage": "https://charactermi.github.io/film_hub",
   "name": "film_hub",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -22,7 +22,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -8,11 +8,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import Poster from "./Poster";
 
 const MovieCard = ({ movie, i, theme }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   return (
-    <Grid item p="10px">
+    <Grid item p="10px" xs={12} sm={6} mdl={4} lgl={3}>
       <Grow in key={i} timeout={(i + 1) * 250}>
         <Box
           component={Link}
@@ -21,32 +22,30 @@ const MovieCard = ({ movie, i, theme }) => {
             fontWeight: "bolder",
             textDecoration: "none",
             display: "flex",
-            width: { xs: "calc(100vw - 2em)", sm: "250px", lg: "300px" },
+            width: "100%",
             borderRadius: "10px",
             flexDirection: "column",
             alignItems: "center",
             px: { xs: 2, sm: 1 },
             background: theme.palette.mode === "light" ? "#ececec" : "#1a1a1a",
             mt: "3rem",
-            height: { xs: "auto", sm: "570px", lg: "630px" },
+            height: "auto",
             "&:hover img": { transform: "scale(1.05)" },
           }}
         >
           <Box
-            component="img"
             sx={{
               width: "100%",
-              transition: "all 100ms ease",
               mt: "-20px",
-              borderRadius: "10px 10px 0 0",
             }}
-            src={
-              movie?.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}`
-                : "https://dummyimage.com/200x300"
-            }
-            alt={movie?.title}
-          />
+          >
+            <Poster
+              path={movie?.poster_path}
+              title={movie?.title}
+              w="w500"
+              type="card"
+            />
+          </Box>
           <Box
             sx={{
               width: "100%",
@@ -60,16 +59,18 @@ const MovieCard = ({ movie, i, theme }) => {
                 width: "100%",
                 overflow: "hidden",
                 whiteSpace: "nowrap",
-                fontSize: { xs: "20px", lg: "28px" },
+                fontSize: { xs: "24px", lg: "28px" },
+                fontWeight: "600"
               }}
             >
-              {movie?.title}
+              {movie?.title || "No title"}
             </Typography>
             <Box
               alignItems="center"
               display="flex"
               justifyContent="space-between"
               mt="1rem"
+              flexWrap="wrap"
             >
               <Tooltip
                 arrow
@@ -94,11 +95,9 @@ const MovieCard = ({ movie, i, theme }) => {
             </Box>
             <Typography
               color={theme.palette.mode === "light" ? "#000" : "#fff"}
-              sx={{ fontSize: "14px", my: "1rem" }}
+              className="movie-card__description"
             >
-              {!isMobile && movie?.overview?.length > 200
-                ? `${movie?.overview?.slice(0, 200)}...`
-                : movie?.overview}
+              {movie?.overview || "No description..."}
             </Typography>
           </Box>
         </Box>

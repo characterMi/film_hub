@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  useGetActorDetailQuery,
-  useGetActorMoviesQuery,
-} from "../services/TMDB";
 import { Grid } from "@mui/material";
+import { useParams } from "react-router-dom";
 import {
   ActorDetails,
   Error,
   Loader,
   RecommendedAndActorMovies,
 } from "../components";
+import { usePagination } from "../hooks/usePagination";
+import {
+  useGetActorDetailQuery,
+  useGetActorMoviesQuery,
+} from "../services/TMDB";
 
 const Actors = ({ theme }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = usePagination();
   const { id } = useParams();
   const { data, isFetching, error } = useGetActorDetailQuery(id);
   const {
@@ -23,7 +23,7 @@ const Actors = ({ theme }) => {
   } = useGetActorMoviesQuery({ id, page: currentPage });
 
   if (isFetching) {
-    return <Loader theme={theme} size="8rem" />;
+    return <Loader size="8rem" />;
   } else if (error) {
     return <Error backButton theme={theme} text="Something has gone wrong" />;
   }

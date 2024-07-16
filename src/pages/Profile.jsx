@@ -1,9 +1,9 @@
+import { ExitToApp } from "@mui/icons-material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { userSelector } from "../features/auth";
-import { Avatar, Box, Button, Typography } from "@mui/material";
-import { ExitToApp } from "@mui/icons-material";
 import { AlertBox, Error, Loader, RatedCards } from "../components";
+import { userSelector } from "../features/auth";
 import { useGetListQuery } from "../services/TMDB";
 
 const Profile = ({ theme }) => {
@@ -42,7 +42,7 @@ const Profile = ({ theme }) => {
   // Check if there's an error
 
   if (isFavoriteMoviesFetching || isWatchListMoviesFetching) {
-    return <Loader theme={theme} size="6rem" />;
+    return <Loader size="6rem" />;
   }
 
   if (favoriteMoviesError || watchListMoviesError) {

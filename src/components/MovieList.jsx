@@ -5,10 +5,10 @@ const MovieList = ({ movies, theme }) => (
   <Grid
     container
     sx={{
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "center",
-      overflowY: "auto",
+      // display: "flex",
+      // flexWrap: "wrap",
+      // justifyContent: "center",
+      // overflowY: "auto",
       overflowX: "hidden",
     }}
   >

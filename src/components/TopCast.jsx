@@ -1,9 +1,26 @@
-import { Box, Button, Grid, Tooltip, Typography } from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Button, Grid, Tooltip, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import Poster from "./Poster";
 
 const TopCast = ({ data, theme }) => {
   const [actorsNumber, setActorsNumber] = useState(6);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const actorsCount = Number(searchParams.get("actors_count"));
+
+  useEffect(() => {
+    if (actorsCount) setActorsNumber(actorsCount)
+  }, [actorsCount])
+
+
+  const handleClick = () => {
+    setSearchParams({
+      actors_count: String(actorsCount + 6),
+    });
+
+    setActorsNumber(actorsCount);
+  }
+
   return (
     <>
       <Typography variant="h4" mb={3}>
@@ -17,6 +34,7 @@ const TopCast = ({ data, theme }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
+          gap: "24px"
         }}
       >
         {data &&
@@ -33,33 +51,22 @@ const TopCast = ({ data, theme }) => {
                   display: "flex",
                   flexDirection: "column",
                   width: "160px",
+                  maxWidth: "7em",
+                  gap: "10px"
                 }}
                 mb={3}
               >
-                <Box
-                  component="img"
-                  src={
-                    character?.profile_path
-                      ? `https://image.tmdb.org/t/p/w500/${character?.profile_path}`
-                      : "https://dummyimage.com/500x750"
-                  }
-                  alt={character?.name}
-                  sx={{
-                    width: "100%",
-                    maxWidth: "7em",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                  }}
-                />
+                <Poster path={character?.profile_path} title={character?.name} w="w500" type="card" />
+
                 <Tooltip disableTouchListener arrow title={character?.name}>
                   <Typography
                     color="textPrimary"
                     sx={{
                       textOverflow: "ellipsis",
-                      width: "160px",
+                      width: "100%",
                       overflow: "hidden",
                       whiteSpace: "nowrap",
-                      textAlign: "center",
+                      fontWeight: "bold"
                     }}
                   >
                     {character?.name}
@@ -74,10 +81,10 @@ const TopCast = ({ data, theme }) => {
                     color="textSecondary"
                     sx={{
                       textOverflow: "ellipsis",
-                      width: "160px",
+                      width: "100%",
                       overflow: "hidden",
                       whiteSpace: "nowrap",
-                      textAlign: "center",
+                      opacity: .8
                     }}
                   >
                     {character?.character?.split("/")[0]}
@@ -87,16 +94,20 @@ const TopCast = ({ data, theme }) => {
             ))
             .slice(0, actorsNumber)}
       </Grid>
-      {data?.credits?.cast?.length > actorsNumber ? (
-        <Button
-          color={theme.palette.mode === "light" ? "primary" : "error"}
-          variant="contained"
-          sx={{ m: "20px auto 0" }}
-          onClick={() => setActorsNumber((prev) => prev + 6)}
-        >
-          Load more
-        </Button>
-      ) : null}
+      {
+        data?.credits?.cast?.length > actorsNumber
+          ? (
+            <Button
+              color={theme.palette.mode === "light" ? "primary" : "error"}
+              variant="contained"
+              sx={{ m: "20px auto 0" }}
+              onClick={handleClick}
+            >
+              Load more
+            </Button>
+          )
+          : null
+      }
     </>
   );
 };

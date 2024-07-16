@@ -1,14 +1,14 @@
+import { Box, Grid, Typography } from "@mui/material";
 import axios from "axios";
-import { Grid, Box, Typography } from "@mui/material";
-import { Buttons, TopCast, MovieDetail, Poster } from ".";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Buttons, MovieDetail, Poster, TopCast } from ".";
 import { userSelector } from "../features/auth";
 import { useGetListQuery } from "../services/TMDB";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
-import BG_DARK from "../assets/backgrounds/bg_01_red.png";
 import BG_LIGHT from "../assets/backgrounds/bg_01_blue.png";
+import BG_DARK from "../assets/backgrounds/bg_01_red.png";
 
 const MovieInformation = ({ data, setOpenModal, id, theme }) => {
   const { user } = useSelector(userSelector);
@@ -43,8 +43,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
   const addToFavorite = async () => {
     try {
       await axios.post(
-        `https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${
-          process.env.REACT_APP_TMDB_API_KEY
+        `https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_API_KEY
         }&session_id=${localStorage.getItem("session_id")}`,
         {
           media_type: "movie",
@@ -70,8 +69,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
   const addToWatchList = async () => {
     try {
       await axios.post(
-        `https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${
-          process.env.REACT_APP_TMDB_API_KEY
+        `https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_API_KEY
         }&session_id=${localStorage.getItem("session_id")}`,
         {
           media_type: "movie",

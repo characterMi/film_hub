@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
-import { useGetMovieQuery, useGetRecommendationsQuery } from "../services/TMDB";
 import { Grid } from "@mui/material";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   Error,
   Loader,
@@ -8,11 +8,12 @@ import {
   RecommendedAndActorMovies,
   Trailer,
 } from "../components";
-import { useState } from "react";
+import { usePagination } from "../hooks/usePagination";
+import { useGetMovieQuery, useGetRecommendationsQuery } from "../services/TMDB";
 
 const MoviePage = ({ theme }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = usePagination();
   const { id } = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
   const {
@@ -24,12 +25,10 @@ const MoviePage = ({ theme }) => {
     page: currentPage,
     list: "recommendations",
   });
-  // console.log(data);
-  if (isFetching) {
-    return <Loader theme={theme} size="8rem" />;
-  } else if (error) {
-    return <Error backButton theme={theme} text="Something has gone wrong" />;
-  }
+
+  if (isFetching) return <Loader size="8rem" />;
+
+  if (error) return <Error backButton theme={theme} text="Something has gone wrong" />;
 
   return (
     <Grid container className="container-space-around">

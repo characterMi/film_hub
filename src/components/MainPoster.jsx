@@ -33,10 +33,19 @@ const MainPoster = ({ movie }) => (
       }}
     />
     <Box sx={{ p: { xs: 2, sm: 4 } }} zIndex="2">
-      <Typography variant="h5" mb="1rem">
+      <Typography
+        variant="h4"
+        mb="1rem"
+        sx={{
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          fontWeight: "bold"
+        }}
+      >
         {movie?.title}
       </Typography>
-      <Typography variant="body1">
+      <Typography variant="body1" sx={{ opacity: 0.8 }}>
         {movie?.overview?.length > 500
           ? `${movie?.overview?.slice(0, 500)}...`
           : movie?.overview}

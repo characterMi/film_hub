@@ -2,15 +2,13 @@ import { SearchOutlined } from "@mui/icons-material";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchMovie } from "../features/currentGenreOrCategory";
 import { useNavigate } from "react-router-dom";
+import { searchMovie } from "../features/currentGenreOrCategory";
 
 const Search = ({ theme }) => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-
-  // Dispatch the query
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {

@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { useGetMoviesQuery } from "../services/TMDB";
 import {
   Error,
   Loader,
@@ -9,9 +7,11 @@ import {
   MovieList,
   PaginationComponent,
 } from "../components";
+import { usePagination } from "../hooks/usePagination";
+import { useGetMoviesQuery } from "../services/TMDB";
 
 const Movies = ({ theme }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = usePagination();
   const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreOrCategory
   );
@@ -21,17 +21,11 @@ const Movies = ({ theme }) => {
     searchQuery,
   });
 
-  // Set the page to 1 if user changed the category or genre
+  if (isFetching) return <Loader size="4rem" />;
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [genreIdOrCategoryName, searchQuery]);
+  if (error) return <Error text="An error has occurred." />;
 
-  if (isFetching) {
-    return <Loader theme={theme} size="4rem" />;
-  } else if (error) {
-    return <Error text="An error has occurred." />;
-  } else if (!data?.results?.length) {
+  if (!data?.results?.length) {
     return (
       <Error
         text={
@@ -44,6 +38,7 @@ const Movies = ({ theme }) => {
       />
     );
   }
+
   return (
     <div>
       <MainPoster movie={data?.results[0]} />
