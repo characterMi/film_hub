@@ -31,7 +31,7 @@ self.addEventListener("fetch", (event) => {
 
           requestUrl.searchParams.delete(
             "api_key",
-            process.env.REACT_APP_TMDB_API_KEY
+            "1860ce01e35b0b38c2133645f5f7847e"
           );
 
           return caches.open("assets").then((cache) => {
