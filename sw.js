@@ -21,10 +21,10 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
+    caches.match(event.request).then(async (response) => {
       // Even if the response is in the cache, we fetch it
       // and update the cache for future usage
-      const fetchPromise = fetch(event.request)
+      const fetchPromise = await fetch(event.request)
         .then((networkResponse) => {
           if (!networkResponse.ok) return;
 
