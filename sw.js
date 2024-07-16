@@ -21,21 +21,20 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then(async (response) => {
+    caches.match(event.request).then((response) => {
       // Even if the response is in the cache, we fetch it
       // and update the cache for future usage
-      const fetchPromise = await fetch(event.request)
+      const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
           if (!networkResponse.ok) return;
 
           if (networkResponse) {
-            return caches.open("assets").then((cache) => {
+            caches.open("assets").then((cache) => {
               cache.put(event.request, networkResponse.clone());
-              return networkResponse;
             });
           }
 
-          return;
+          return networkResponse;
         })
         .catch((e) => console.error("Error fetching the data: ", e));
       // We use the currently cached version if it's there
