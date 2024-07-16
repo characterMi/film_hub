@@ -24,12 +24,20 @@ self.addEventListener("fetch", (event) => {
     caches.match(event.request).then((response) => {
       // Even if the response is in the cache, we fetch it
       // and update the cache for future usage
-      const fetchPromise = fetch(event.request).then((networkResponse) => {
-        caches.open("assets").then((cache) => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        });
-      });
+      const fetchPromise = fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse.ok) return;
+
+          if (networkResponse) {
+            return caches.open("assets").then((cache) => {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            });
+          }
+
+          return;
+        })
+        .catch((e) => console.error("Error fetching the data: ", e));
       // We use the currently cached version if it's there
       return response || fetchPromise; // cached or a network fetch
     })
