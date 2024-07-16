@@ -38,21 +38,21 @@
 
 <ul>
     <li>
-        <img src="https://github.com/characterMi/characterMi/raw/main/technologies/icons8-html.svg" alt="HTML" />
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-html.svg" alt="HTML" />
     </li>
     <li>
-        <img src="https://github.com/characterMi/characterMi/raw/main/technologies/icons8-css.svg" alt="Css" />
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-css.svg" alt="Css" />
     </li>
     <li>
-        <img src="https://github.com/characterMi/characterMi/raw/main/technologies/icons8-js.svg" alt="Js" />
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-js.svg" alt="Js" />
     </li>
     <li>
-        <img src="https://github.com/characterMi/characterMi/raw/main/technologies/icons8-react-native.svg" width="46" height="46" alt="React" />
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-react-native.svg" width="46" height="46" alt="React" />
     </li>
     <li>
-        <img src="https://github.com/characterMi/characterMi/raw/main/technologies/icons8-material-ui.svg" width="46" height="46" alt="MUI" />
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-material-ui.svg" width="46" height="46" alt="MUI" />
     </li>
     <li>
-        <img src="https://github.com/characterMi/characterMi/raw/main/technologies/icons8-redux.svg" width="46" height="46" alt="Redux" />
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-redux.svg" width="46" height="46" alt="Redux" />
     </li>
 </ul>
