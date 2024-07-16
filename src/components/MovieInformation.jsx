@@ -172,7 +172,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
         <Typography variant="h4" gutterBottom>
           Overview
         </Typography>
-        <Typography mb="2rem" align="center">
+        <Typography mb="2rem" align="justify">
           {data?.overview}
         </Typography>
       </Grid>

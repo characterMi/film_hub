@@ -3,6 +3,7 @@
 ### Filmhub is a comprehensive app for movie lovers. The app features a wide variety of movie from all over the world. Users can use the app to find their favorite movies and get comprehensive information about them.(اگه ایران هستید از فیلترشکن استفاده کنید)
 
 ### Key features of FilmHub:
+
 - Access to a wide variety of movies
 - Ability to search for movies by genre, category, name and other factors
 - Access to comprehensive information about each movie including plot summary, cast, rating, release date, and much more...
@@ -10,6 +11,7 @@
 - Ability to view recommended movies based on user interests
 - Ability to access comprehensive information about actors, including movies they have appeared in, biographies and more...
 - Ability to log in to your account and save favorite movies and watchlists
+- Ability to download the application and use it offline.
 
 ## Link 🔗 [https://charactermi.github.io/film_hub](https://charactermi.github.io/film_hub)
 
@@ -54,5 +56,8 @@
     </li>
     <li>
         <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/icons8-redux.svg" width="46" height="46" alt="Redux" />
+    </li>
+    <li>
+        <img src="https://github.com/characterMi/characterMi/raw/main/images/technologies/pwa.png" width="60" height="24" alt="PWA" />
     </li>
 </ul>

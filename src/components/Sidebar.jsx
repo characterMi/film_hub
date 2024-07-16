@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import DarkLogo from "../assets/logo/LOGO_DARKTHEME.png";
 import LightLogo from "../assets/logo/LOGO_LIGHTTHEME.png";
 import { useGetGenresQuery } from "../services/TMDB";
-import { CategoryAndGenre, Error, Loader } from "./";
+import { CategoryAndGenre, DownloadBtn, Error, Loader } from "./";
 
 const categories = [
   { label: "Popular", value: "popular" },
@@ -56,19 +56,23 @@ const Sidebar = ({ theme, setMobileOpen }) => {
       {isFetching ? (
         <Loader size="4rem" />
       ) : (
-        <List>
-          <ListSubheader>Genres</ListSubheader>
-          {data?.genres?.map((genre, i) => (
-            <CategoryAndGenre
-              key={i}
-              theme={theme}
-              value={genre?.id}
-              src={genreIcons[genre?.name?.toLowerCase()]}
-              text={genre?.name}
-            />
-          ))}
-        </List>
+        <>
+          <List>
+            <ListSubheader>Genres</ListSubheader>
+            {data?.genres?.map((genre, i) => (
+              <CategoryAndGenre
+                key={i}
+                theme={theme}
+                value={genre?.id}
+                src={genreIcons[genre?.name?.toLowerCase()]}
+                text={genre?.name}
+              />
+            ))}
+          </List>
+          <DownloadBtn theme={theme} />
+        </>
       )}
+
     </>
   );
 };

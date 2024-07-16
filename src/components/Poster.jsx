@@ -68,6 +68,9 @@ const Poster = ({ w, path, title, type = "poster" }) => {
             sx={{
               width: "100%",
               height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
             }}
           />
         )
