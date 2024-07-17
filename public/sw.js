@@ -6,7 +6,7 @@ const assets = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("assets").then((cache) => {
+    caches.open("filmhub").then((cache) => {
       cache.addAll(assets);
     })
   );
@@ -27,7 +27,7 @@ self.addEventListener("fetch", (event) => {
             process.env.REACT_APP_TMDB_API_KEY
           );
 
-          return caches.open("assets").then((cache) => {
+          return caches.open("filmhub").then((cache) => {
             cache.put(requestUrl.toString(), networkResponse.clone());
             return networkResponse;
           });

@@ -88,4 +88,8 @@
     -webkit-user-select: none;
     user-select: none;
   }
+
+  .download-btn {
+    display: none;
+  }
 }

@@ -35,6 +35,7 @@ const DownloadAppButton = ({ theme }) => {
       color={theme.palette.mode === "light" ? "inherit" : "error"}
       onClick={handleDownload}
       sx={{ mb: 4 }}
+      className="download-btn"
     >
       Download app &nbsp; <Download />
     </Button>

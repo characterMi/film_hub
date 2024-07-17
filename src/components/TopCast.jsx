@@ -9,13 +9,15 @@ const TopCast = ({ data, theme }) => {
   const actorsCount = Number(searchParams.get("actors_count"));
 
   useEffect(() => {
-    if (actorsCount) setActorsNumber(actorsCount)
+    if (actorsCount) return setActorsNumber(actorsCount)
+
+    setActorsNumber(6);
   }, [actorsCount])
 
 
   const handleClick = () => {
     setSearchParams({
-      actors_count: String(actorsCount + 6),
+      actors_count: actorsCount ? String(actorsCount + 6) : "12",
     });
 
     setActorsNumber(actorsCount);
