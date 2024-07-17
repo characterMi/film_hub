@@ -1,19 +1,19 @@
 const assets = [
   "/film_hub",
   "/film_hub/icons/filmhub-192.png",
-  "/film_hub/static/css/main.c1188d57.css",
-  "/film_hub/static/css/main.c1188d57.css.map",
-  "/film_hub/static/js/main.429a2dfd.js",
-  "/film_hub/static/js/main.429a2dfd.js.map",
+  "/film_hub/static/css/main.ab39d3fc.css",
+  "/film_hub/static/js/main.6a7b8fe7.js",
   "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
   "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
   "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
   "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
+  "/film_hub/static/css/main.ab39d3fc.css.map",
+  "/film_hub/static/js/main.6a7b8fe7.js.map",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("assets").then((cache) => {
+    caches.open("filmhub").then((cache) => {
       cache.addAll(assets);
     })
   );
@@ -34,7 +34,7 @@ self.addEventListener("fetch", (event) => {
             "1860ce01e35b0b38c2133645f5f7847e"
           );
 
-          return caches.open("assets").then((cache) => {
+          return caches.open("filmhub").then((cache) => {
             cache.put(requestUrl.toString(), networkResponse.clone());
             return networkResponse;
           });

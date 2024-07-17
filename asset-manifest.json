@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/film_hub/static/css/main.c1188d57.css",
-    "main.js": "/film_hub/static/js/main.429a2dfd.js",
+    "main.css": "/film_hub/static/css/main.ab39d3fc.css",
+    "main.js": "/film_hub/static/js/main.6a7b8fe7.js",
     "static/media/bg_01_blue.png": "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
     "static/media/bg_01_red.png": "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
     "static/media/LOGO_DARKTHEME.png": "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
     "static/media/LOGO_LIGHTTHEME.png": "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
     "index.html": "/film_hub/index.html",
-    "main.c1188d57.css.map": "/film_hub/static/css/main.c1188d57.css.map",
-    "main.429a2dfd.js.map": "/film_hub/static/js/main.429a2dfd.js.map"
+    "main.ab39d3fc.css.map": "/film_hub/static/css/main.ab39d3fc.css.map",
+    "main.6a7b8fe7.js.map": "/film_hub/static/js/main.6a7b8fe7.js.map"
   },
   "entrypoints": [
-    "static/css/main.c1188d57.css",
-    "static/js/main.429a2dfd.js"
+    "static/css/main.ab39d3fc.css",
+    "static/js/main.6a7b8fe7.js"
   ]
 }
