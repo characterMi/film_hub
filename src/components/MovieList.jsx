@@ -1,21 +1,22 @@
 import { Grid } from "@mui/material";
 import { MovieCard } from ".";
 
-const MovieList = ({ movies, theme }) => (
+const MovieList = ({ movies, theme, isProfilePage }) => (
   <Grid
     container
     sx={{
-      // display: "flex",
-      // flexWrap: "wrap",
-      // justifyContent: "center",
-      // overflowY: "auto",
       overflowX: "hidden",
     }}
   >
-    {movies?.results?.map((movie, index) =>
-      index === 0 ? null : (
-        <MovieCard key={index} movie={movie} i={index} theme={theme} />
-      )
+    {movies?.results?.map((movie, index) => {
+      if (!isProfilePage) {
+        return !index
+          ? null
+          : <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
+      }
+
+      return <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
+    }
     )}
   </Grid>
 );

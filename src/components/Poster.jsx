@@ -7,6 +7,7 @@ const Poster = ({ w, path, title, type = "poster" }) => {
   const [isPosterLoaded, setIsPosterLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
   const theme = useTheme();
+  const transition = "transform 100ms ease, opacity 500ms ease-in-out";
 
   return (
     <Box
@@ -36,11 +37,10 @@ const Poster = ({ w, path, title, type = "poster" }) => {
           m: { xs: "0 auto", lg: 0 },
           opacity: isPosterLoaded ? 1 : 0,
           objectFit: "cover",
-          transition: "transform 100ms ease, opacity 500ms ease-in-out",
+          transition,
         }}
         onLoad={() => setIsPosterLoaded(true)}
         onError={() => {
-          console.error("Error Loading the Image!");
           setIsError(true);
           setIsPosterLoaded(true);
         }}
@@ -71,6 +71,7 @@ const Poster = ({ w, path, title, type = "poster" }) => {
               position: "absolute",
               top: 0,
               left: 0,
+              transition,
             }}
           />
         )

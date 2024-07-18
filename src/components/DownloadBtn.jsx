@@ -31,14 +31,15 @@ const DownloadAppButton = ({ theme }) => {
   }, []);
 
   return (
-    <Button
-      color={theme.palette.mode === "light" ? "inherit" : "error"}
-      onClick={handleDownload}
-      sx={{ mb: 4 }}
-      className="download-btn"
-    >
-      Download app &nbsp; <Download />
-    </Button>
+    <div className="download-btn">
+      <Button
+        color={theme.palette.mode === "light" ? "inherit" : "error"}
+        onClick={handleDownload}
+        sx={{ mb: 4 }}
+      >
+        Download app &nbsp; <Download />
+      </Button>
+    </div>
   );
 };
 

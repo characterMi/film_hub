@@ -1,5 +1,5 @@
 const assets = [
-  "/film_hub",
+  "/film_hub/",
   "/film_hub/icons/filmhub-192.png",
   // Add the js, css files after build + images in media folder.
 ];
@@ -22,10 +22,7 @@ self.addEventListener("fetch", (event) => {
           // if we cache our resources with the event.request, api keys is going to expose.
           const requestUrl = new URL(event.request.url);
 
-          requestUrl.searchParams.delete(
-            "api_key",
-            process.env.REACT_APP_TMDB_API_KEY
-          );
+          requestUrl.searchParams.delete("api_key");
 
           return caches.open("filmhub").then((cache) => {
             cache.put(requestUrl.toString(), networkResponse.clone());

@@ -1,5 +1,6 @@
 export { default as ActorDetails } from "./ActorDetails";
 export { default as AlertBox } from "./AlertBox";
+export { default as Auth } from "./Auth";
 export { default as Biography } from "./Biography";
 export { default as Buttons } from "./Buttons";
 export { default as CategoryAndGenre } from "./CategoryAndGenre";

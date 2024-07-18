@@ -1,12 +1,26 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { logoutUser } from "../features/auth";
 
 const AlertBox = ({ setAlertBox, alertBox, theme }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [_, setSearchParams] = useSearchParams();
+
   const logout = () => {
-    localStorage.clear();
-    window.location.href = `${window.location.origin}/film_hub`;
+    setAlertBox(false);
+
+    dispatch(logoutUser());
+
+    setSearchParams({});
+
+    navigate("/");
+
     toast.error("You Logged out !");
   };
+
   return (
     <Modal
       closeAfterTransition
@@ -33,7 +47,7 @@ const AlertBox = ({ setAlertBox, alertBox, theme }) => {
           borderRadius: "10px",
         }}
       >
-        <Typography variant="h6">Do you want to logout ?</Typography>
+        <Typography variant="h6">Do you really want to logout ?</Typography>
         <Box mt="10px">
           <Button
             color={theme.palette.mode === "light" ? "primary" : "error"}
