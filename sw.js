@@ -2,13 +2,13 @@ const assets = [
   "/film_hub",
   "/film_hub/icons/filmhub-192.png",
   "/film_hub/static/css/main.ab39d3fc.css",
-  "/film_hub/static/js/main.6a7b8fe7.js",
+  "/film_hub/static/js/main.3faf2acb.js",
   "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
   "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
   "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
   "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
   "/film_hub/static/css/main.ab39d3fc.css.map",
-  "/film_hub/static/js/main.6a7b8fe7.js.map",
+  "/film_hub/static/js/main.3faf2acb.js.map",
 ];
 
 self.addEventListener("install", (event) => {
@@ -29,10 +29,7 @@ self.addEventListener("fetch", (event) => {
           // if we cache our resources with the event.request, api keys is going to expose.
           const requestUrl = new URL(event.request.url);
 
-          requestUrl.searchParams.delete(
-            "api_key",
-            "1860ce01e35b0b38c2133645f5f7847e"
-          );
+          requestUrl.searchParams.delete("api_key");
 
           return caches.open("filmhub").then((cache) => {
             cache.put(requestUrl.toString(), networkResponse.clone());
