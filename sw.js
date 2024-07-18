@@ -1,5 +1,5 @@
 const assets = [
-  "/film_hub",
+  "/film_hub/",
   "/film_hub/icons/filmhub-192.png",
   "/film_hub/static/css/main.ab39d3fc.css",
   "/film_hub/static/js/main.3faf2acb.js",
