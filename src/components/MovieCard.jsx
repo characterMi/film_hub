@@ -13,7 +13,7 @@ import Poster from "./Poster";
 const MovieCard = ({ movie, i, theme }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
   return (
-    <Grid item p="10px" xs={12} sm={6} mdl={4} lgl={3}>
+    <Grid item px="10px" xs={12} sm={6} mdl={4} lgl={3} mt="2rem">
       <Grow in key={i} timeout={(i + 1) * 250}>
         <Box
           component={Link}
@@ -28,8 +28,7 @@ const MovieCard = ({ movie, i, theme }) => {
             alignItems: "center",
             px: { xs: 2, sm: 1 },
             background: theme.palette.mode === "light" ? "#ececec" : "#1a1a1a",
-            mt: "3rem",
-            height: "auto",
+            height: "100%",
             "&:hover img": { transform: "scale(1.05)" },
           }}
         >
@@ -93,12 +92,14 @@ const MovieCard = ({ movie, i, theme }) => {
                 Language: {movie?.original_language?.toUpperCase()}
               </Typography>
             </Box>
-            <Typography
-              color={theme.palette.mode === "light" ? "#000" : "#fff"}
-              className="movie-card__description"
-            >
-              {movie?.overview || "No description..."}
-            </Typography>
+            <Box sx={{ marginBlock: "1rem" }}>
+              <Typography
+                color={theme.palette.mode === "light" ? "#000" : "#fff"}
+                className="movie-card__description"
+              >
+                {movie?.overview || "No description..."}
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Grow>

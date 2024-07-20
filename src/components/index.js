@@ -21,3 +21,4 @@ export { default as Search } from "./Search";
 export { default as Sidebar } from "./Sidebar";
 export { default as TopCast } from "./TopCast";
 export { default as Trailer } from "./Trailer";
+export { default as UserMovies } from "./UserMovies";

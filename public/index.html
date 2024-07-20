@@ -7,19 +7,30 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="light" />
     <meta
       name="description"
       content="Filmhub is a comprehensive app for movie lovers. The app features a wide variety of movie from all over the world. Users can use the app to find their favorite movies and get comprehensive information about them."
     />
     <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("/film_hub/sw.js")
-          .then((res) => {
-            console.log("Serviceworker Started.");
-          })
-          .catch((error) => console.error("an Error has been occurred!"));
+      const mode = localStorage.getItem("mode");
+
+      if (mode && (mode === "dark" || mode === "light")) {
+        const meta = document.querySelector("meta[name=color-scheme]");
+
+        meta.setAttribute("content", mode);
       }
+
+      window.addEventListener("load", () => {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("/film_hub/sw.js")
+            .then((res) => {
+              console.log("Serviceworker Started.");
+            })
+            .catch((error) => console.error("an Error has been occurred!"));
+        }
+      });
     </script>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/filmhub-192.png" />

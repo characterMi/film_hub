@@ -8,6 +8,18 @@ const ThemeProviderComponent = ({ children }) => {
   const theme = useMemo(
     () =>
       createTheme({
+        components: {
+          MuiTabs: {
+            styleOverrides: {
+              root: {
+                color: mode === "light" ? "#2196f3" : "#f44336",
+              },
+              indicator: {
+                background: mode === "light" ? "#2196f3" : "#f44336",
+              },
+            }
+          }
+        },
         breakpoints: {
           values: {
             xs: 0,
@@ -26,12 +38,18 @@ const ThemeProviderComponent = ({ children }) => {
     [mode]
   );
   const toggleColorMode = () => {
+    const meta = document.querySelector("meta[name=color-scheme]");
+
     if (mode === "light") {
       localStorage.setItem("mode", "dark");
+
+      meta.setAttribute("content", "dark");
+
       return setMode("dark");
     }
 
     localStorage.setItem("mode", "light");
+    meta.setAttribute("content", "light");
     setMode("light");
   };
 

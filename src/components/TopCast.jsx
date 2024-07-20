@@ -9,9 +9,12 @@ const TopCast = ({ data, theme }) => {
   const actorsCount = Number(searchParams.get("actors_count"));
 
   useEffect(() => {
-    if (actorsCount) return setActorsNumber(actorsCount)
+    if (actorsCount) {
+      setActorsNumber(actorsCount)
+    } else {
+      setActorsNumber(6);
+    }
 
-    setActorsNumber(6);
   }, [actorsCount])
 
 

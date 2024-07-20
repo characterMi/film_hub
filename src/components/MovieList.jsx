@@ -6,7 +6,9 @@ const MovieList = ({ movies, theme, isProfilePage }) => (
     container
     sx={{
       overflowX: "hidden",
+      mt: "1rem",
     }}
+    rowGap="2rem"
   >
     {movies?.results?.map((movie, index) => {
       if (!isProfilePage) {

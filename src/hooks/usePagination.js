@@ -8,10 +8,10 @@ export const usePagination = () => {
 
   useEffect(() => {
     if (pageFromSearchParams && pageFromSearchParams > 0) {
-      return setCurrentPage(+pageFromSearchParams);
+      setCurrentPage(+pageFromSearchParams);
+    } else {
+      setCurrentPage(1);
     }
-
-    setCurrentPage(1);
   }, [pageFromSearchParams]);
 
   return [currentPage, setCurrentPage];

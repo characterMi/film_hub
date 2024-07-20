@@ -29,9 +29,13 @@
   height: 80px;
 }
 
+.download-btn {
+  display: flex;
+  justify-content: center;
+}
+
 .movie-card__description {
   font-size: 14px;
-  margin-block: 1rem;
   text-align: justify;
   overflow: hidden;
   display: -webkit-box;

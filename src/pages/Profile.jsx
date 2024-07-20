@@ -1,10 +1,27 @@
 import { ExitToApp } from "@mui/icons-material";
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import { Avatar, Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { AlertBox, Error, Loader, RatedCards } from "../components";
+import { useSearchParams } from "react-router-dom";
+import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
 import { useGetListQuery } from "../services/TMDB";
+import { a11yProps } from "../utils";
+
+const CustomTabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {children}
+    </div>
+  );
+}
 
 const Profile = ({ theme }) => {
   const { user } = useSelector(userSelector);
@@ -30,20 +47,33 @@ const Profile = ({ theme }) => {
     sessionId: localStorage.getItem("session_id"),
     page: 1,
   });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabIndex = searchParams.get("tab");
   const [alertBox, setAlertBox] = useState(false);
+  const [value, setValue] = useState(tabIndex || 0);
+
+  useEffect(() => {
+    if (tabIndex >= 0 && tabIndex <= 1) {
+      setValue(+tabIndex);
+    } else {
+      setValue(0);
+    }
+  }, [tabIndex]);
 
   // Update lists, immediately after user added a movie to the lists
   useEffect(() => {
-    favoriteRefetch();
-    watchlistRefetch();
+    const { unsubscribe: unsubscribeWatchlist } = watchlistRefetch();
+    const { unsubscribe: unsubscribeFavorites } = favoriteRefetch();
+
+    return () => {
+      unsubscribeWatchlist();
+      unsubscribeFavorites();
+    }
   }, []);
 
-  if (isFavoriteMoviesFetching || isWatchListMoviesFetching) {
-    return <Loader size="6rem" />;
-  }
-
-  if (favoriteMoviesError || watchListMoviesError) {
-    return <Error backButton theme={theme} text="Something went wrong !" />;
+  const handleTabChange = (_, newValue) => {
+    setSearchParams({ tab: newValue });
+    setValue(newValue);
   }
 
   return (
@@ -91,42 +121,39 @@ const Profile = ({ theme }) => {
           Logout &nbsp; <ExitToApp />
         </Button>
       </Box>
-      <Box mb="4rem" mt="4rem">
-        {!favoriteMovies?.results?.length ? (
-          <Typography variant="h5">
-            Add some favorite movies to see them here!
-          </Typography>
-        ) : (
-          <Box>
-            <RatedCards
-              theme={theme}
-              title="Favorite Movies"
-              data={favoriteMovies}
-            />
-          </Box>
-        )}
+
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: "2rem" }}>
+        <Tabs
+          value={value}
+          onChange={handleTabChange}
+          aria-label="Movie tabs"
+          textColor="inherit"
+        >
+          <Tab label="Favorites" {...a11yProps(0)} />
+          <Tab label="Watchlist" {...a11yProps(1)} />
+        </Tabs>
       </Box>
-      <Box
-        sx={{
-          borderTop: "1px solid",
-          pt: "2rem",
-          borderColor: theme.palette.mode === "light" ? "#000000" : "#ffffff"
-        }}
-      >
-        {!watchListMovies?.results?.length ? (
-          <Typography variant="h5">
-            Add some movies to "watchlist" and you'll see them here!
-          </Typography>
-        ) : (
-          <Box>
-            <RatedCards
-              theme={theme}
-              title="Watchlist"
-              data={watchListMovies}
-            />
-          </Box>
-        )}
-      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <UserMovies
+          theme={theme}
+          movies={favoriteMovies}
+          fallbackText="Add some favorite movies to see them here!"
+          title="Favorite Movies"
+          isLoading={isFavoriteMoviesFetching}
+          isError={favoriteMoviesError}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <UserMovies
+          theme={theme}
+          movies={watchListMovies}
+          fallbackText={`Add some movies to "watchlist" and you'll see them here!`}
+          title="Watchlist Movies"
+          isLoading={isWatchListMoviesFetching}
+          isError={watchListMoviesError}
+        />
+      </CustomTabPanel>
+
       <AlertBox setAlertBox={setAlertBox} alertBox={alertBox} theme={theme} />
     </Box>
   );
