@@ -6,10 +6,10 @@
 /* Hide scrollbar for IE, Edge and Firefox */
 * {
   -webkit-tap-highlight-color: transparent;
-  -ms-overflow-style: none;
   /* IE and Edge */
-  scrollbar-width: none;
+  -ms-overflow-style: none;
   /* Firefox */
+  scrollbar-width: none;
 }
 
 .root {
@@ -32,6 +32,17 @@
 .download-btn {
   display: flex;
   justify-content: center;
+}
+
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .movie-card__description {
@@ -62,7 +73,7 @@
   flex-wrap: wrap;
 }
 
-@media screen and (max-width: 599px) {
+@media (max-width: 599px) {
   .movie-card__description {
     -webkit-line-clamp: unset;
     line-clamp: unset;

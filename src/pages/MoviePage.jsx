@@ -31,7 +31,7 @@ const MoviePage = ({ theme }) => {
   if (error) return <Error backButton theme={theme} text="Something has gone wrong" />;
 
   return (
-    <Grid container className="container-space-around">
+    <Grid container mt="10px">
       {/* All movie information like the poster, name, actors and ... */}
       <MovieInformation
         data={data}

@@ -39,7 +39,7 @@ const TopCast = ({ data, theme }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           alignItems: "center",
-          gap: "24px"
+          gap: "24px",
         }}
       >
         {data &&

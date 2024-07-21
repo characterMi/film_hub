@@ -49,7 +49,7 @@ const ThemeProviderComponent = ({ children }) => {
     }
 
     localStorage.setItem("mode", "light");
-    meta.setAttribute("content", "light");
+    meta.setAttribute("content", "only light");
     setMode("light");
   };
 

@@ -1,5 +1,5 @@
-import { Box, Button, ButtonGroup, Grid, Typography } from "@mui/material";
 import {
+  AddCircleOutline,
   ArrowBack,
   Favorite,
   FavoriteBorderOutlined,
@@ -7,8 +7,8 @@ import {
   Movie,
   RemoveCircleOutline,
   Theaters,
-  AddCircleOutline,
 } from "@mui/icons-material";
+import { Box, Button, ButtonGroup, Grid, Typography } from "@mui/material";
 
 const Buttons = ({
   data,
@@ -22,7 +22,7 @@ const Buttons = ({
   <>
     <Grid item container mt="2rem">
       <Box className="buttons-container">
-        <Grid item xs={12} md={6} className="buttons-container">
+        <Grid item>
           <ButtonGroup
             color={theme.palette.mode === "light" ? "primary" : "error"}
             size="medium"
@@ -52,7 +52,7 @@ const Buttons = ({
             </Button>
           </ButtonGroup>
         </Grid>
-        <Grid item xs={12} md={6} className="buttons-container">
+        <Grid item>
           <ButtonGroup
             color={theme.palette.mode === "light" ? "primary" : "error"}
             size="medium"

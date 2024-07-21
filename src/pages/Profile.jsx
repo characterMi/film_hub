@@ -2,7 +2,7 @@ import { ExitToApp } from "@mui/icons-material";
 import { Avatar, Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
 import { useGetListQuery } from "../services/TMDB";
@@ -24,6 +24,11 @@ const CustomTabPanel = (props) => {
 }
 
 const Profile = ({ theme }) => {
+  const sessionId = localStorage.getItem("session_id");
+  const navigate = useNavigate();
+
+  if (!sessionId) navigate("/");
+
   const { user } = useSelector(userSelector);
   const {
     data: favoriteMovies,
@@ -107,7 +112,7 @@ const Profile = ({ theme }) => {
                 maxWidth: "100%"
               }}
             >
-              @{user?.username}
+              {user?.username ? `@${user.username}` : "User"}
             </Typography>
           </Box>
         </Box>

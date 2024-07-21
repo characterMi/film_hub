@@ -14,7 +14,7 @@ export const fetchToken = async () => {
     const token = data.request_token;
     if (data.success) {
       localStorage.setItem("request_token", token);
-      window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/film_hub%23%2Fprofile`;
+      window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/film_hub%23%2F`;
     }
   } catch (err) {
     toast.error("Sorry, your token could not be created.");
@@ -31,8 +31,9 @@ export const createSessionId = async () => {
       } = await moviesApi.post("authentication/session/new", {
         request_token: token,
       });
-      localStorage.setItem("session_id", session_id);
+
       if (session_id) {
+        localStorage.setItem("session_id", session_id);
         toast.success("You Logged in successfully !");
       } else {
         toast.error("Sorry, there was an error !");

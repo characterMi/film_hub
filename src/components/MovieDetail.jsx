@@ -1,8 +1,8 @@
-import genreIcons from "../assets/genres";
-import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 import { Box, Grid, Rating, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import genreIcons from "../assets/genres";
+import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 
 const MovieDetail = ({ data, theme }) => {
   const dispatch = useDispatch();
@@ -113,7 +113,6 @@ const MovieDetail = ({ data, theme }) => {
         item
         className="container-space-around"
         sx={{
-          flexDirection: { xs: "row", xl: "column !important" },
           flexWrap: "wrap",
         }}
       >
@@ -122,21 +121,21 @@ const MovieDetail = ({ data, theme }) => {
           sx={{ mt: { xs: "20px", xl: "50px" } }}
           ml="10px"
         >
-          | Status: {data?.status}
+          Status: {data?.status}
         </Typography>
         <Typography
           variant="h6"
           sx={{ mt: { xs: "20px", xl: "50px" } }}
           ml="10px"
         >
-          | Budget: ${data?.budget?.toLocaleString()}
+          Budget: ${data?.budget?.toLocaleString()}
         </Typography>
         <Typography
           variant="h6"
           sx={{ mt: { xs: "20px", xl: "50px" } }}
           ml="10px"
         >
-          | Revenue: ${data?.revenue?.toLocaleString()}
+          Revenue: ${data?.revenue?.toLocaleString()}
         </Typography>
       </Grid>
     </>

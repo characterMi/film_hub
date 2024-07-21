@@ -5,7 +5,7 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
   const [_, setSearchParams] = useSearchParams();
 
   const paginate = (_, value) => {
-    setSearchParams({ page: value })
+    setSearchParams({ page: value });
 
     setCurrentPage(value);
     window.scrollTo({

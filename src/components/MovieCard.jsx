@@ -54,13 +54,10 @@ const MovieCard = ({ movie, i, theme }) => {
             <Typography
               color={theme.palette.mode === "light" ? "#000" : "#fff"}
               sx={{
-                textOverflow: "ellipsis",
-                width: "100%",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
                 fontSize: { xs: "24px", lg: "28px" },
                 fontWeight: "600"
               }}
+              className="line-clamp-1"
             >
               {movie?.title || "No title"}
             </Typography>

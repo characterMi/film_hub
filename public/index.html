@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#000000" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="only light" />
     <meta
       name="description"
       content="Filmhub is a comprehensive app for movie lovers. The app features a wide variety of movie from all over the world. Users can use the app to find their favorite movies and get comprehensive information about them."
@@ -15,7 +15,7 @@
     <script>
       const mode = localStorage.getItem("mode");
 
-      if (mode && (mode === "dark" || mode === "light")) {
+      if (mode === "dark") {
         const meta = document.querySelector("meta[name=color-scheme]");
 
         meta.setAttribute("content", mode);
