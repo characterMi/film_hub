@@ -31,7 +31,7 @@ const MovieDetail = ({ data, theme }) => {
         align="center"
         gutterBottom
       >
-        {data?.title} ({data?.release_date.split("-")[0]})
+        {data?.title} {data?.release_date ? `(${data?.release_date.split("-")[0]})` : null}
       </Typography>
       <Typography
         sx={{
