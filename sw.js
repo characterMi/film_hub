@@ -2,13 +2,13 @@ const assets = [
   "/film_hub/",
   "/film_hub/icons/filmhub-192.png",
   "/film_hub/static/css/main.0da0beba.css",
-  "/film_hub/static/js/main.d07ca4f5.js",
+  "/film_hub/static/js/main.da21119f.js",
   "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
   "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
   "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
   "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
   "/film_hub/static/css/main.0da0beba.css.map",
-  "/film_hub/static/js/main.d07ca4f5.js.map",
+  "/film_hub/static/js/main.da21119f.js.map",
 ];
 
 self.addEventListener("install", (event) => {
