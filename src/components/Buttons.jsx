@@ -16,6 +16,7 @@ import {
   Typography,
   useMediaQuery
 } from "@mui/material";
+import { useState } from "react";
 
 const ButtonGroup = ({ children, theme }) => {
   const isMobile = useMediaQuery("(width < 400px)");
@@ -41,6 +42,25 @@ const Buttons = ({
   addToFavorite,
   addToWatchList,
 }) => {
+  const [isAddingToFavoritesLoading, setIsAddingToFavoritesLoading] = useState(false);
+  const [isAddingToWatchlistLoading, setIsAddingToWatchlistLoading] = useState(false);
+
+  async function handleAddToFavorites() {
+    setIsAddingToFavoritesLoading(true);
+
+    await addToFavorite();
+
+    setIsAddingToFavoritesLoading(false);
+  }
+
+  async function handleAddToWatchlist() {
+    setIsAddingToWatchlistLoading(true);
+
+    await addToWatchList();
+
+    setIsAddingToWatchlistLoading(false);
+  }
+
   return (
     <>
       <Grid item container mt="2rem">
@@ -74,19 +94,20 @@ const Buttons = ({
           <Grid item>
             <ButtonGroup theme={theme}>
               <Button
-                onClick={addToFavorite}
+                onClick={handleAddToFavorites}
                 endIcon={
                   isMovieFavorited ? (
-                    <Favorite color="error" />
+                    <Favorite color={isAddingToFavoritesLoading ? "inherit" : "error"} />
                   ) : (
-                    <FavoriteBorderOutlined color="error" />
+                    <FavoriteBorderOutlined color={isAddingToFavoritesLoading ? "inherit" : "error"} />
                   )
                 }
+                disabled={isAddingToFavoritesLoading}
               >
                 Favorite
               </Button>
               <Button
-                onClick={addToWatchList}
+                onClick={handleAddToWatchlist}
                 endIcon={
                   isMovieWatchListed ? (
                     <RemoveCircleOutline />
@@ -94,6 +115,7 @@ const Buttons = ({
                     <AddCircleOutline />
                   )
                 }
+                disabled={isAddingToWatchlistLoading}
               >
                 Watchlist
               </Button>
