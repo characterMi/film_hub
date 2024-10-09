@@ -6,15 +6,23 @@ import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 
 const MovieDetail = ({ data, theme }) => {
   const dispatch = useDispatch();
-  let runTime = null;
+  let about = null;
 
-  if (data?.runtime < 60) {
-    runTime = `${data?.runtime}m`;
+  if (data?.runtime) {
+    // if the data is a movie, we show the duration, otherwise we show the number of episodes.
+    if (data?.runtime < 60) {
+      about = `${data?.runtime}m`;
+    } else {
+      const minutes = data?.runtime % 60;
+      const hours = (data?.runtime - minutes) / 60;
+      about = `${hours}h ${minutes}m`;
+    }
   } else {
-    const minutes = data?.runtime % 60;
-    const hours = (data?.runtime - minutes) / 60;
-    runTime = `${hours}h ${minutes}m`;
+    about = data?.last_air_date?.split("-")[0];
   }
+
+  console.log(data);
+
 
   return (
     <>
@@ -31,7 +39,8 @@ const MovieDetail = ({ data, theme }) => {
         align="center"
         gutterBottom
       >
-        {data?.title} {data?.release_date ? `(${data?.release_date.split("-")[0]})` : null}
+        {data?.title || data?.name}{" "}
+        {data?.release_date ? `(${data?.release_date?.split("-")[0]})` : null}
       </Typography>
       <Typography
         sx={{
@@ -65,7 +74,11 @@ const MovieDetail = ({ data, theme }) => {
           gutterBottom
           sx={{ ml: "15px !important" }}
         >
-          Duration: {runTime} | Language:{" "}
+          {data?.runtime
+            ? `Duration: ${about}`
+            : `Year: ${about ?? "Unknown"}`
+          }{" "}
+          | Language:{" "}
           {data?.original_language?.toUpperCase()}
         </Typography>
       </Grid>
@@ -78,36 +91,54 @@ const MovieDetail = ({ data, theme }) => {
           flexWrap: "wrap",
         }}
       >
-        {data?.genres?.map((genre, index) => (
-          <Box
-            component={Link}
-            key={index}
-            to="/"
-            onClick={() => dispatch(selectGenreOrCategory(genre?.id))}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              p: { xs: "0.5rem 1rem", md: "0" },
-              ml: "5px",
-              textDecoration: "none",
-            }}
-          >
+        {data?.genres?.map((genre, index) => {
+          // handling specific cases...
+          const genreNameArray = genre?.name?.split(" ");
+          let src = genreNameArray?.[0];
+
+          switch (src) {
+            case "Sci-Fi":
+              src = genreNameArray?.[2];
+              break;
+            case "Soap":
+              src = "Drama";
+              break;
+
+            default:
+              break;
+          }
+
+          return (
             <Box
-              component="img"
-              src={genreIcons[genre?.name.toLowerCase()]}
-              alt="Genres"
+              component={Link}
+              key={index}
+              to="/"
+              onClick={() => dispatch(selectGenreOrCategory(genre?.id))}
               sx={{
-                height: 30,
-                filter: theme.palette.mode === "dark" && "invert(1)",
-                mr: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                p: { xs: "0.5rem 1rem", md: "0" },
+                ml: "5px",
+                textDecoration: "none",
               }}
-            />
-            <Typography color="textPrimary" variant="subtitle1">
-              {genre?.name}
-            </Typography>
-          </Box>
-        ))}
+            >
+              <Box
+                component="img"
+                src={genreIcons[src?.toLowerCase()]}
+                alt={`${genre?.name} Genre`}
+                sx={{
+                  height: 30,
+                  filter: theme.palette.mode === "dark" && "invert(1)",
+                  mr: "10px",
+                }}
+              />
+              <Typography color="textPrimary" variant="subtitle1">
+                {genre?.name}
+              </Typography>
+            </Box>
+          )
+        })}
       </Grid>
       <Grid
         item
@@ -128,14 +159,20 @@ const MovieDetail = ({ data, theme }) => {
           sx={{ mt: { xs: "20px", xl: "50px" } }}
           ml="10px"
         >
-          Budget: ${data?.budget?.toLocaleString()}
+          {data?.budget !== undefined || data?.budget !== null
+            ? `Budget: ${data?.budget?.toLocaleString()}`
+            : `Seasons: ${data?.number_of_seasons}`
+          }
         </Typography>
         <Typography
           variant="h6"
           sx={{ mt: { xs: "20px", xl: "50px" } }}
           ml="10px"
         >
-          Revenue: ${data?.revenue?.toLocaleString()}
+          {data?.revenue !== undefined || data?.revenue !== null
+            ? `Revenue: ${data?.revenue?.toLocaleString()}`
+            : `Episodes: ${data?.number_of_episodes}`
+          }
         </Typography>
       </Grid>
     </>

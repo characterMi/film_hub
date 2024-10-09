@@ -8,11 +8,16 @@ import DarkLogo from "../assets/logo/LOGO_DARKTHEME.png";
 import LightLogo from "../assets/logo/LOGO_LIGHTTHEME.png";
 import { useGetGenresQuery } from "../services/TMDB";
 import { CategoryAndGenre, DownloadBtn, Error, Loader } from "./";
+import ChangeType from "./ChangeType";
+
+let value = "upcoming";
+
+if (localStorage.getItem("type") === "tv") value = "on_the_air";
 
 const categories = [
   { label: "Popular", value: "popular" },
   { label: "Top Rated", value: "top_rated" },
-  { label: "Upcoming", value: "upcoming" },
+  { label: "Upcoming", value },
 ];
 
 const Sidebar = ({ theme, setMobileOpen }) => {
@@ -40,6 +45,8 @@ const Sidebar = ({ theme, setMobileOpen }) => {
         />
       </Link>
       <Divider />
+      <ChangeType />
+      <Divider />
       <List>
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }, i) => (
@@ -59,15 +66,33 @@ const Sidebar = ({ theme, setMobileOpen }) => {
         <>
           <List>
             <ListSubheader>Genres</ListSubheader>
-            {data?.genres?.map((genre, i) => (
-              <CategoryAndGenre
-                key={i}
-                theme={theme}
-                value={genre?.id}
-                src={genreIcons[genre?.name?.toLowerCase()]}
-                text={genre?.name}
-              />
-            ))}
+            {data?.genres?.map((genre, i) => {
+              // handling specific cases...
+              const genreNameArray = genre?.name?.split(" ");
+              let src = genreNameArray?.[0];
+
+              switch (src) {
+                case "Sci-Fi":
+                  src = genreNameArray?.[2];
+                  break;
+                case "Soap":
+                  src = "Drama";
+                  break;
+
+                default:
+                  break;
+              }
+
+              return (
+                <CategoryAndGenre
+                  key={i}
+                  theme={theme}
+                  value={genre?.id}
+                  src={genreIcons[src?.toLowerCase()]}
+                  text={genre?.name}
+                />
+              )
+            })}
           </List>
           <DownloadBtn theme={theme} />
         </>

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const MainPoster = ({ movie }) => (
+const MoviePoster = ({ movie }) => (
   <Link
     style={{
       position: "relative",
@@ -37,13 +37,11 @@ const MainPoster = ({ movie }) => (
         variant="h4"
         mb="1rem"
         sx={{
-          textOverflow: "ellipsis",
-          overflow: "hidden",
-          whiteSpace: "nowrap",
           fontWeight: "bold"
         }}
+        className="line-clamp-1"
       >
-        {movie?.title}
+        {movie?.title || movie?.name}
       </Typography>
       <Typography variant="body1" sx={{ opacity: 0.8 }}>
         {movie?.overview?.length > 500
@@ -54,4 +52,4 @@ const MainPoster = ({ movie }) => (
   </Link>
 );
 
-export default MainPoster;
+export default MoviePoster;

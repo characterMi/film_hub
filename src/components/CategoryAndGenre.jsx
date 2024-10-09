@@ -23,6 +23,7 @@ const CategoryAndGenre = ({ theme, value, src, text }) => {
               width: "70%",
               height: 30,
               filter: theme.palette.mode === "dark" && "invert(1)",
+              objectFit: "contain"
             }}
           />
         </ListItemIcon>

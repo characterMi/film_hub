@@ -11,6 +11,9 @@ import BG_LIGHT from "../assets/backgrounds/bg_01_blue.png";
 import BG_DARK from "../assets/backgrounds/bg_01_red.png";
 
 const MovieInformation = ({ data, setOpenModal, id, theme }) => {
+  const movieName = data?.title || data?.name;
+  const type = localStorage.getItem("type");
+  const media_type = type === "movie" || type === "tv" ? type : "movie";
   const { user } = useSelector(userSelector);
   const {
     data: favoriteMovies,
@@ -46,7 +49,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
         `https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_API_KEY
         }&session_id=${localStorage.getItem("session_id")}`,
         {
-          media_type: "movie",
+          media_type,
           media_id: id,
           favorite: !isMovieFavorited,
         }
@@ -72,7 +75,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
         `https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_API_KEY
         }&session_id=${localStorage.getItem("session_id")}`,
         {
-          media_type: "movie",
+          media_type,
           media_id: id,
           watchlist: !isMovieWatchListed,
         }
@@ -140,7 +143,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
           alt="background"
           src={theme.palette.mode === "light" ? BG_LIGHT : BG_DARK}
         />
-        <Poster w="w500" path={data?.poster_path} title={data?.title} />
+        <Poster w="w500" path={data?.poster_path} title={movieName ?? "Movie Poster"} />
       </Grid>
       {/* Movie Details */}
       <Grid

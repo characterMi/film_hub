@@ -80,6 +80,7 @@ const Buttons = ({
                 href={`https://www.imdb.com/title/${data?.imdb_id}`}
                 target="_blank"
                 rel="noreferrer noopener"
+                disabled={!data?.imdb_id}
               >
                 IMDB
               </Button>

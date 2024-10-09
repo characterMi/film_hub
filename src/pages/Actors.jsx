@@ -24,7 +24,9 @@ const Actors = ({ theme }) => {
 
   if (isFetching) {
     return <Loader size="8rem" />;
-  } else if (error) {
+  }
+
+  if (error) {
     return <Error backButton theme={theme} text="Something has gone wrong" />;
   }
 

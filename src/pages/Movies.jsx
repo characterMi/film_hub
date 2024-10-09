@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import {
   Error,
   Loader,
-  MainPoster,
   MovieList,
+  MoviePoster,
   PaginationComponent,
 } from "../components";
 import { usePagination } from "../hooks/usePagination";
@@ -41,7 +41,7 @@ const Movies = ({ theme }) => {
 
   return (
     <div>
-      <MainPoster movie={data?.results[0]} />
+      <MoviePoster movie={data?.results[0]} />
       <MovieList movies={data} theme={theme} />
       <PaginationComponent
         movies={data}

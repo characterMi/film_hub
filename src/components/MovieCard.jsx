@@ -12,6 +12,8 @@ import Poster from "./Poster";
 
 const MovieCard = ({ movie, i, theme }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
+  const movieName = movie?.title || movie?.name;
+
   return (
     <Grid item px="10px" xs={12} sm={6} mdl={4} lgl={3} mt="2rem">
       <Grow in key={i} timeout={(i + 1) * 250}>
@@ -59,7 +61,7 @@ const MovieCard = ({ movie, i, theme }) => {
               }}
               className="line-clamp-1"
             >
-              {movie?.title || "No title"}
+              {movieName ?? "No title"}
             </Typography>
             <Box
               alignItems="center"

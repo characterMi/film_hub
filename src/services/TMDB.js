@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY,
+  typeFromStorage = localStorage.getItem("type"),
+  type =
+    typeFromStorage === "tv" || typeFromStorage === "movie"
+      ? typeFromStorage
+      : "movie";
 
 export const tmdbApi = createApi({
   reducerPath: "tmdbApi",
@@ -8,7 +13,7 @@ export const tmdbApi = createApi({
   endpoints: (builder) => ({
     // * Get Genres
     getGenres: builder.query({
-      query: () => `genre/movie/list?api_key=${API_KEY}`,
+      query: () => `genre/${type}/list?api_key=${API_KEY}`,
     }),
 
     // * Get Movies by [type]
@@ -16,7 +21,7 @@ export const tmdbApi = createApi({
       query: ({ genreIdOrCategoryName, page, searchQuery }) => {
         // Get Movies by Search
         if (searchQuery) {
-          return `search/movie?query=${searchQuery}&page=${page}&api_key=${API_KEY}`;
+          return `search/${type}?query=${searchQuery}&page=${page}&api_key=${API_KEY}`;
         }
 
         // Get Movies by Categories
@@ -24,7 +29,7 @@ export const tmdbApi = createApi({
           genreIdOrCategoryName &&
           typeof genreIdOrCategoryName === "string"
         ) {
-          return `movie/${genreIdOrCategoryName}?page=${page}&api_key=${API_KEY}`;
+          return `${type}/${genreIdOrCategoryName}?page=${page}&api_key=${API_KEY}`;
         }
 
         // Get Movies by Genre Id
@@ -32,17 +37,17 @@ export const tmdbApi = createApi({
           genreIdOrCategoryName &&
           typeof genreIdOrCategoryName === "number"
         ) {
-          return `discover/movie?with_genres=${genreIdOrCategoryName}&page=${page}&api_key=${API_KEY}`;
+          return `discover/${type}?with_genres=${genreIdOrCategoryName}&page=${page}&api_key=${API_KEY}`;
         }
         // Get Movies by Default
-        return `movie/popular?page=${page}&api_key=${API_KEY}`;
+        return `${type}/popular?page=${page}&api_key=${API_KEY}`;
       },
     }),
 
     // * Get Movie
     getMovie: builder.query({
       query: (id) =>
-        `/movie/${id}?append_to_response=videos,credits&api_key=${API_KEY}`,
+        `/${type}/${id}?append_to_response=videos,credits&api_key=${API_KEY}`,
     }),
 
     // * Get User Specific List
@@ -56,7 +61,7 @@ export const tmdbApi = createApi({
 
     getRecommendations: builder.query({
       query: ({ movieId, page, list }) =>
-        `/movie/${movieId}/${list}?page=${page}&api_key=${API_KEY}`,
+        `/${type}/${movieId}/${list}?page=${page}&api_key=${API_KEY}`,
     }),
 
     // * Get Actor Details

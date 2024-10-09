@@ -24,8 +24,13 @@ const CustomTabPanel = (props) => {
 }
 
 const Profile = ({ theme }) => {
+  let type = "movies";
   const sessionId = localStorage.getItem("session_id");
   const navigate = useNavigate();
+
+  if (localStorage.getItem("type") === "tv") {
+    type = "tv";
+  }
 
   if (!sessionId) navigate("/");
 
@@ -36,7 +41,7 @@ const Profile = ({ theme }) => {
     error: favoriteMoviesError,
     refetch: favoriteRefetch,
   } = useGetListQuery({
-    listName: "favorite/movies",
+    listName: `favorite/${type}`,
     accountId: user.id,
     sessionId: localStorage.getItem("session_id"),
     page: 1,
@@ -47,7 +52,7 @@ const Profile = ({ theme }) => {
     error: watchListMoviesError,
     refetch: watchlistRefetch,
   } = useGetListQuery({
-    listName: "watchlist/movies",
+    listName: `watchlist/${type}`,
     accountId: user.id,
     sessionId: localStorage.getItem("session_id"),
     page: 1,
