@@ -1,17 +1,20 @@
 {
   "files": {
     "main.css": "/film_hub/static/css/main.0da0beba.css",
-    "main.js": "/film_hub/static/js/main.e4cf5782.js",
+    "main.js": "/film_hub/static/js/main.39654adb.js",
     "static/media/bg_01_blue.png": "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
     "static/media/bg_01_red.png": "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
     "static/media/LOGO_DARKTHEME.png": "/film_hub/static/media/LOGO_DARKTHEME.c424e3ad8e51d35c87fc.png",
     "static/media/LOGO_LIGHTTHEME.png": "/film_hub/static/media/LOGO_LIGHTTHEME.49910c385f71c2ed0f17.png",
+    "static/media/talk.png": "/film_hub/static/media/talk.fdb2ad80a1752591d96c.png",
+    "static/media/kids.png": "/film_hub/static/media/kids.6edf58c08e3829731c43.png",
+    "static/media/reality.png": "/film_hub/static/media/reality.5d5f84e93142db9e2199.png",
     "index.html": "/film_hub/index.html",
     "main.0da0beba.css.map": "/film_hub/static/css/main.0da0beba.css.map",
-    "main.e4cf5782.js.map": "/film_hub/static/js/main.e4cf5782.js.map"
+    "main.39654adb.js.map": "/film_hub/static/js/main.39654adb.js.map"
   },
   "entrypoints": [
     "static/css/main.0da0beba.css",
-    "static/js/main.e4cf5782.js"
+    "static/js/main.39654adb.js"
   ]
 }
