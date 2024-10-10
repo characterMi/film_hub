@@ -171,6 +171,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
+        mx="auto"
       >
         <Typography variant="h4" gutterBottom>
           Overview

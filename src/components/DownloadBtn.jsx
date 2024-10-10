@@ -10,7 +10,7 @@ const DownloadAppButton = ({ theme }) => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
     } else {
-      toast.success(
+      toast.info(
         `To install the app look for "Add to Homescreen" or install in your browser's menu.`
       );
     }

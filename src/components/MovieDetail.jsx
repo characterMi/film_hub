@@ -1,28 +1,46 @@
 import { Box, Grid, Rating, Typography } from "@mui/material";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import genreIcons from "../assets/genres";
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 
 const MovieDetail = ({ data, theme }) => {
+  const movieDetail = useRef({
+    firstRowContent: [`Language: ${data?.original_language?.toUpperCase()} | `],
+    secondRowContent: [`Status: ${data?.status}`],
+  });
   const dispatch = useDispatch();
-  let about = null;
 
-  if (data?.runtime) {
-    // if the data is a movie, we show the duration, otherwise we show the number of episodes.
-    if (data?.runtime < 60) {
-      about = `${data?.runtime}m`;
-    } else {
-      const minutes = data?.runtime % 60;
-      const hours = (data?.runtime - minutes) / 60;
-      about = `${hours}h ${minutes}m`;
+  useEffect(() => {
+    const type = localStorage.getItem("type");
+
+    if (type === "movie") {
+      let duration = null;
+
+      if (data?.runtime < 60) {
+        duration = `${data?.runtime ?? 0}m`;
+      } else {
+        const minutes = data?.runtime % 60;
+        const hours = (data?.runtime - minutes) / 60;
+        duration = `${hours}h ${minutes}m`;
+      }
+
+      movieDetail.current.firstRowContent[0] += `Duration: ${duration}`;
+
+      movieDetail.current.secondRowContent.push(`Budget: ${data?.budget?.toLocaleString() ?? 0}`);
+      movieDetail.current.secondRowContent.push(`Revenue: ${data?.revenue?.toLocaleString() ?? 0}`);
     }
-  } else {
-    about = data?.last_air_date?.split("-")[0];
-  }
 
-  console.log(data);
+    if (type === "tv") {
+      const lastSeasonYear = data?.last_air_date?.split("-")[0];
 
+      movieDetail.current.firstRowContent[0] += `Last season in: ${lastSeasonYear ?? 2000}`;
+
+      movieDetail.current.secondRowContent.push(`Seasons: ${data?.number_of_seasons ?? 1}`);
+      movieDetail.current.secondRowContent.push(`Episodes: ${data?.number_of_episodes ?? 12}`);
+    }
+  }, []);
 
   return (
     <>
@@ -74,12 +92,7 @@ const MovieDetail = ({ data, theme }) => {
           gutterBottom
           sx={{ ml: "15px !important" }}
         >
-          {data?.runtime
-            ? `Duration: ${about}`
-            : `Year: ${about ?? "Unknown"}`
-          }{" "}
-          | Language:{" "}
-          {data?.original_language?.toUpperCase()}
+          {movieDetail.current.firstRowContent[0]}
         </Typography>
       </Grid>
       <Grid
@@ -147,33 +160,16 @@ const MovieDetail = ({ data, theme }) => {
           flexWrap: "wrap",
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{ mt: { xs: "20px", xl: "50px" } }}
-          ml="10px"
-        >
-          Status: {data?.status}
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{ mt: { xs: "20px", xl: "50px" } }}
-          ml="10px"
-        >
-          {data?.budget !== undefined || data?.budget !== null
-            ? `Budget: ${data?.budget?.toLocaleString()}`
-            : `Seasons: ${data?.number_of_seasons}`
-          }
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{ mt: { xs: "20px", xl: "50px" } }}
-          ml="10px"
-        >
-          {data?.revenue !== undefined || data?.revenue !== null
-            ? `Revenue: ${data?.revenue?.toLocaleString()}`
-            : `Episodes: ${data?.number_of_episodes}`
-          }
-        </Typography>
+        {movieDetail.current.secondRowContent.map(item => (
+          <Typography
+            key={item}
+            variant="h6"
+            sx={{ mt: { xs: "20px", xl: "50px" } }}
+            ml="10px"
+          >
+            {item}
+          </Typography>
+        ))}
       </Grid>
     </>
   );

@@ -19,9 +19,11 @@ const TopCast = ({ data, theme }) => {
 
 
   const handleClick = () => {
-    setSearchParams({
-      actors_count: actorsCount ? String(actorsCount + 6) : "12",
-    });
+    const newParams = new URLSearchParams(searchParams);
+
+    newParams.set("actors_count", actorsCount ? String(actorsCount + 6) : "12");
+
+    setSearchParams(newParams);
 
     setActorsNumber(actorsCount);
   }

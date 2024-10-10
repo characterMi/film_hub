@@ -1,9 +1,10 @@
 import { FormControl, InputLabel, MenuItem, Select, useTheme } from "@mui/material";
 
 const ChangeType = () => {
-    const theme = useTheme();
-    const isDarkMode = theme.palette.mode === "dark";
-    const type = localStorage.getItem("type");
+    const theme = useTheme(),
+        isDarkMode = theme.palette.mode === "dark",
+        type = localStorage.getItem("type"),
+        isTypeValid = type === "tv" || type === "movie";
 
     function onChange(event) {
         localStorage.setItem("type", event.target.value);
@@ -15,7 +16,7 @@ const ChangeType = () => {
             <InputLabel id="change-type">Type</InputLabel>
             <Select
                 labelId="change-type"
-                value={type || "Movie"}
+                value={isTypeValid ? type : "movie"}
                 label="Type"
                 onChange={onChange}
             >

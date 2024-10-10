@@ -12,7 +12,7 @@ const RecommendedAndActorMovies = ({
 }) => {
   if (loading) return <Loader size="8rem" />;
 
-  if (error) return <Error backButton text="Oops ! No results" />;
+  if (error) return <Error backButton theme={theme} text="Oops ! No results" />;
 
   return (
     <Box mt="5rem" width="100%">

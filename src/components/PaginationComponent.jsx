@@ -2,10 +2,14 @@ import { Box, Pagination, useMediaQuery } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const paginate = (_, value) => {
-    setSearchParams({ page: value });
+    const newParams = new URLSearchParams(searchParams);
+
+    newParams.set("page", value);
+
+    setSearchParams(newParams);
 
     setCurrentPage(value);
     window.scrollTo({

@@ -4,10 +4,11 @@ import { Box, Button, Typography } from "@mui/material";
 const Error = ({ backButton, theme, text }) => (
   <Box
     display="flex"
-    mt="20px"
+    my="3rem"
     justifyContent="center"
     alignItems="center"
     sx={{ flexDirection: { xs: "column", md: "row" } }}
+    mx="auto"
   >
     <Typography variant="h4" textAlign="center">
       {text}
