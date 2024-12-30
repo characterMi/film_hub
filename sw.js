@@ -17,11 +17,11 @@ const assets = [
   "/film_hub/static/media/reality.5d5f84e93142db9e2199.png",
   "/film_hub/static/css/main.0da0beba.css.map",
   "/film_hub/static/js/main.25db303c.js.map",
-  "/film_hub/static/js/661.f07d24bb.chunk.js",
-  "/film_hub/static/js/275.52bf7d83.chunk.js",
-  "/film_hub/static/js/134.dcd70454.chunk.js",
-  "/film_hub/static/js/315.7dfbe333.chunk.js",
-  "/film_hub/static/js/225.9b76fdd9.chunk.js",
+  "/film_hub/static/js/661.f07d24bb.chunk.js.map",
+  "/film_hub/static/js/275.52bf7d83.chunk.js.map",
+  "/film_hub/static/js/134.dcd70454.chunk.js.map",
+  "/film_hub/static/js/315.7dfbe333.chunk.js.map",
+  "/film_hub/static/js/225.9b76fdd9.chunk.js.map",
 ];
 
 self.addEventListener("install", (event) => {
