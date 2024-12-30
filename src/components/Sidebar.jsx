@@ -20,14 +20,14 @@ const categories = [
   { label: "Upcoming", value },
 ];
 
-const Sidebar = ({ theme, setMobileOpen }) => {
+const Sidebar = ({ theme, setIsMenuOpen }) => {
   const { data, error, isFetching } = useGetGenresQuery();
   const { genreIdOrCategoryName } = useSelector(
     (state) => state.currentGenreOrCategory
   );
 
   useEffect(() => {
-    setMobileOpen(false);
+    setIsMenuOpen(false);
   }, [genreIdOrCategoryName]);
 
   if (error) return <Error text="Oops ! No results" />;

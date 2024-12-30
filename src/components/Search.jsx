@@ -35,6 +35,7 @@ const Search = ({ theme }) => {
               <SearchOutlined />
             </InputAdornment>
           ),
+          placeholder: "Search for a movie...",
         }}
       />
     </Box>

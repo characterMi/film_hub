@@ -19,7 +19,7 @@ const Navbar = ({ theme }) => {
   const colorToggleMode = useContext(ColorModeContext);
   const isMobile = useMediaQuery("(max-width:599px)");
   const isTablet = useMediaQuery("(max-width:899px)");
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
@@ -41,7 +41,8 @@ const Navbar = ({ theme }) => {
               outline: "none",
               mr: "2rem",
             }}
-            onClick={() => setMobileOpen((prev) => !prev)}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             <Menu />
           </IconButton>
@@ -49,6 +50,7 @@ const Navbar = ({ theme }) => {
             color="inherit"
             sx={{ ml: 1 }}
             onClick={colorToggleMode.toggleColorMode}
+            aria-label="Toggle dark mode"
           >
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
@@ -68,12 +70,12 @@ const Navbar = ({ theme }) => {
             <Drawer
               variant="temporary"
               anchor="right"
-              open={mobileOpen}
-              onClose={() => setMobileOpen((prev) => !prev)}
+              open={isMenuOpen}
+              onClose={() => setIsMenuOpen((prev) => !prev)}
               sx={{ "& .MuiDrawer-paper": { width: "240px" } }}
               ModalProps={{ keepMounted: true }}
             >
-              <Sidebar theme={theme} setMobileOpen={setMobileOpen} />
+              <Sidebar theme={theme} setIsMenuOpen={setIsMenuOpen} />
             </Drawer>
           ) : (
             <Drawer
@@ -81,7 +83,7 @@ const Navbar = ({ theme }) => {
               variant="permanent"
               open
             >
-              <Sidebar theme={theme} setMobileOpen={setMobileOpen} />
+              <Sidebar theme={theme} setIsMenuOpen={setIsMenuOpen} />
             </Drawer>
           )}
         </Box>
