@@ -3,12 +3,13 @@ import { Avatar, Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
 import { useGetListQuery } from "../services/TMDB";
 import { a11yProps } from "../utils";
 
-const CustomTabPanel = (props) => {
+const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -32,7 +33,10 @@ const Profile = ({ theme }) => {
     type = "tv";
   }
 
-  if (!sessionId) navigate("/");
+  if (!sessionId) {
+    toast.error("You need to login to view your profile!");
+    navigate("/");
+  }
 
   const { user } = useSelector(userSelector);
   const {
@@ -143,7 +147,7 @@ const Profile = ({ theme }) => {
           <Tab label="Watchlist" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
+      <TabPanel value={value} index={0}>
         <UserMovies
           theme={theme}
           movies={favoriteMovies}
@@ -152,8 +156,8 @@ const Profile = ({ theme }) => {
           isLoading={isFavoriteMoviesFetching}
           isError={favoriteMoviesError}
         />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
         <UserMovies
           theme={theme}
           movies={watchListMovies}
@@ -162,7 +166,7 @@ const Profile = ({ theme }) => {
           isLoading={isWatchListMoviesFetching}
           isError={watchListMoviesError}
         />
-      </CustomTabPanel>
+      </TabPanel>
 
       <AlertBox setAlertBox={setAlertBox} alertBox={alertBox} theme={theme} />
     </Box>

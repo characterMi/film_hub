@@ -1,6 +1,6 @@
 import { CssBaseline, useTheme } from "@mui/material";
-import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense, useLayoutEffect } from "react";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Loader, Navbar } from "./components";
 
@@ -17,6 +17,17 @@ const RouteWithinSuspense = ({ child }) => (
 
 function App() {
   const theme = useTheme();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get("type");
+
+  useLayoutEffect(() => {
+    if (type === "movie" || type === "tv") {
+      localStorage.setItem("type", type);
+
+      setSearchParams({});
+      window.location.reload();
+    }
+  }, []);
 
   return (
     <div className="root">

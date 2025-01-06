@@ -29,15 +29,88 @@
   "background_color": "#000000",
   "screenshots": [
     {
-      "src": "/film_hub/icons/filmhub_first.png",
-      "sizes": "1024x768",
+      "src": "/film_hub/images/d1.png",
+      "sizes": "1440x900",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "/film_hub/icons/filmhub_responsive.png",
-      "sizes": "339x747",
-      "type": "image/png"
+      "src": "/film_hub/images/d2.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/film_hub/images/d3.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/film_hub/images/1.jpg",
+      "sizes": "1080x2262",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/film_hub/images/2.jpg",
+      "sizes": "1080x2262",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/film_hub/images/3.jpg",
+      "sizes": "1080x2263",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/film_hub/images/4.jpg",
+      "sizes": "1080x2262",
+      "type": "image/jpg"
+    },
+    {
+      "src": "/film_hub/images/5.jpg",
+      "sizes": "1080x2268",
+      "type": "image/jpg"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Movies",
+      "short_name": "Movies",
+      "description": "Movies",
+      "url": "/film_hub#/?type=movie",
+      "icons": [
+        {
+          "src": "/film_hub/icons/movies.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "TV-Shows",
+      "short_name": "TV-Shows",
+      "description": "TV-Shows",
+      "url": "/film_hub#/?type=tv",
+      "icons": [
+        {
+          "src": "/film_hub/icons/tv-shows.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "short_name": "Profile",
+      "description": "Profile",
+      "url": "/film_hub#/profile",
+      "icons": [
+        {
+          "src": "/film_hub/icons/profile.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

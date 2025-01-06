@@ -15,23 +15,6 @@ const MovieDetail = ({ data, theme }) => {
   useEffect(() => {
     const type = localStorage.getItem("type");
 
-    if (type === "movie") {
-      let duration = null;
-
-      if (data?.runtime < 60) {
-        duration = `${data?.runtime ?? 0}m`;
-      } else {
-        const minutes = data?.runtime % 60;
-        const hours = (data?.runtime - minutes) / 60;
-        duration = `${hours}h ${minutes}m`;
-      }
-
-      movieDetail.current.firstRowContent[0] += `Duration: ${duration}`;
-
-      movieDetail.current.secondRowContent.push(`Budget: ${data?.budget?.toLocaleString() ?? 0}`);
-      movieDetail.current.secondRowContent.push(`Revenue: ${data?.revenue?.toLocaleString() ?? 0}`);
-    }
-
     if (type === "tv") {
       const lastSeasonYear = data?.last_air_date?.split("-")[0];
 
@@ -39,8 +22,25 @@ const MovieDetail = ({ data, theme }) => {
 
       movieDetail.current.secondRowContent.push(`Seasons: ${data?.number_of_seasons ?? 1}`);
       movieDetail.current.secondRowContent.push(`Episodes: ${data?.number_of_episodes ?? 12}`);
+      return;
     }
-  }, []);
+
+    let duration = null;
+
+    if (data?.runtime < 60) {
+      duration = `${data?.runtime ?? 0}m`;
+    } else {
+      const minutes = data?.runtime % 60;
+      const hours = (data?.runtime - minutes) / 60;
+      duration = `${hours}h ${minutes}m`;
+    }
+
+    movieDetail.current.firstRowContent[0] += `Duration: ${duration}`;
+
+    movieDetail.current.secondRowContent.push(`Budget: ${data?.budget?.toLocaleString() ?? 0}`);
+    movieDetail.current.secondRowContent.push(`Revenue: ${data?.revenue?.toLocaleString() ?? 0}`);
+
+  }, [data]);
 
   return (
     <>
