@@ -1,5 +1,5 @@
 {
-  "id": "/film_hub/",
+  "id": "/film_hub",
   "name": "FilmHub",
   "short_name": "FilmHub",
   "description": "Filmhub is a comprehensive app for movie lovers. The app features a wide variety of movie from all over the world. Users can use the app to find their favorite movies and get comprehensive information about them.",
@@ -77,7 +77,7 @@
       "name": "Movies",
       "short_name": "Movies",
       "description": "Movies",
-      "url": ".?type=movie",
+      "url": ".#/?type=movie",
       "icons": [
         {
           "src": "/film_hub/icons/movies.png",
@@ -90,7 +90,7 @@
       "name": "TV-Shows",
       "short_name": "TV-Shows",
       "description": "TV-Shows",
-      "url": ".?type=tv",
+      "url": ".#/?type=tv",
       "icons": [
         {
           "src": "/film_hub/icons/tv-shows.png",
