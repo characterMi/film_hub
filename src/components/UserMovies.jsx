@@ -12,9 +12,16 @@ const UserMovies = ({
     isLoading,
     isError,
 }) => {
+    const sessionId = localStorage.getItem("session_id");
+
     if (isLoading) return <Loader size="6rem" />;
 
-    if (isError) return <Error backButton theme={theme} text="Something went wrong !" />;
+    if (isError)
+        return <Error
+            backButton={!!sessionId}
+            theme={theme}
+            text={sessionId ? "Something went wrong !" : "No Movies Found. Please login first !"}
+        />;
 
     return (
         <Box mb="2rem" mt="2rem">

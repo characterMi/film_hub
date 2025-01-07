@@ -2,7 +2,7 @@ import { ExitToApp } from "@mui/icons-material";
 import { Avatar, Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
@@ -27,15 +27,9 @@ const TabPanel = (props) => {
 const Profile = ({ theme }) => {
   let type = "movies";
   const sessionId = localStorage.getItem("session_id");
-  const navigate = useNavigate();
 
   if (localStorage.getItem("type") === "tv") {
     type = "tv";
-  }
-
-  if (!sessionId) {
-    toast.error("You need to login to view your profile!");
-    navigate("/");
   }
 
   const { user } = useSelector(userSelector);
@@ -47,7 +41,7 @@ const Profile = ({ theme }) => {
   } = useGetListQuery({
     listName: `favorite/${type}`,
     accountId: user.id,
-    sessionId: localStorage.getItem("session_id"),
+    sessionId,
     page: 1,
   });
   const {
@@ -58,7 +52,7 @@ const Profile = ({ theme }) => {
   } = useGetListQuery({
     listName: `watchlist/${type}`,
     accountId: user.id,
-    sessionId: localStorage.getItem("session_id"),
+    sessionId,
     page: 1,
   });
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,6 +70,11 @@ const Profile = ({ theme }) => {
 
   // Update lists, immediately after user added a movie to the lists
   useEffect(() => {
+    if (!sessionId) {
+      toast.error("You need to login to view your profile!");
+      return;
+    }
+
     const { unsubscribe: unsubscribeWatchlist } = watchlistRefetch();
     const { unsubscribe: unsubscribeFavorites } = favoriteRefetch();
 
