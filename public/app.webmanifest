@@ -77,7 +77,7 @@
       "name": "Movies",
       "short_name": "Movies",
       "description": "Movies",
-      "url": "/film_hub#/?type=movie",
+      "url": "#?type=movie",
       "icons": [
         {
           "src": "/film_hub/icons/movies.png",
@@ -90,7 +90,7 @@
       "name": "TV-Shows",
       "short_name": "TV-Shows",
       "description": "TV-Shows",
-      "url": "/film_hub#/?type=tv",
+      "url": "#?type=tv",
       "icons": [
         {
           "src": "/film_hub/icons/tv-shows.png",
@@ -103,7 +103,7 @@
       "name": "Profile",
       "short_name": "Profile",
       "description": "Profile",
-      "url": "/film_hub#/profile",
+      "url": "#/profile",
       "icons": [
         {
           "src": "/film_hub/icons/profile.png",
