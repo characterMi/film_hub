@@ -1,5 +1,5 @@
 import { CssBaseline, useTheme } from "@mui/material";
-import { lazy, Suspense, useLayoutEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useSearchParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Loader, Navbar } from "./components";
@@ -20,7 +20,7 @@ function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get("type");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (type === "movie" || type === "tv") {
       localStorage.setItem("type", type);
 

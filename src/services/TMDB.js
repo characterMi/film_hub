@@ -1,11 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY,
-  typeFromStorage = localStorage.getItem("type"),
-  type =
-    typeFromStorage === "tv" || typeFromStorage === "movie"
-      ? typeFromStorage
-      : "movie";
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+const type = localStorage.getItem("type") === "tv" ? "tv" : "movie";
 
 export const tmdbApi = createApi({
   reducerPath: "tmdbApi",

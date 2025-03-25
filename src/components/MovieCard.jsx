@@ -9,10 +9,11 @@ import {
 } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAppType } from "../hooks/useAppType";
 import Poster from "./Poster";
 
 const MovieCard = ({ movie, i, theme }) => {
-  const type = localStorage.getItem("type");
+  const type = useAppType();
   const isMobile = useMediaQuery("(max-width:600px)");
   const movieName = movie?.title || movie?.name;
   const pathName = useLocation().pathname;

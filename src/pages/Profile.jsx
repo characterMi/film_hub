@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
+import { useAppType } from "../hooks/useAppType";
 import { useGetListQuery } from "../services/TMDB";
 import { a11yProps } from "../utils";
 
@@ -25,12 +26,8 @@ const TabPanel = (props) => {
 }
 
 const Profile = ({ theme }) => {
-  let type = "movies";
+  const type = useAppType();
   const sessionId = localStorage.getItem("session_id");
-
-  if (localStorage.getItem("type") === "tv") {
-    type = "tv";
-  }
 
   const { user } = useSelector(userSelector);
   const {
@@ -39,7 +36,7 @@ const Profile = ({ theme }) => {
     error: favoriteMoviesError,
     refetch: favoriteRefetch,
   } = useGetListQuery({
-    listName: `favorite/${type}`,
+    listName: `favorite/${type === "tv" ? "tv" : "movies"}`,
     accountId: user.id,
     sessionId,
     page: 1,
@@ -50,7 +47,7 @@ const Profile = ({ theme }) => {
     error: watchListMoviesError,
     refetch: watchlistRefetch,
   } = useGetListQuery({
-    listName: `watchlist/${type}`,
+    listName: `watchlist/${type === "tv" ? "tv" : "movies"}`,
     accountId: user.id,
     sessionId,
     page: 1,

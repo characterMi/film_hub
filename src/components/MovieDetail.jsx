@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import genreIcons from "../assets/genres";
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
+import { useAppType } from "../hooks/useAppType";
 
 const MovieDetail = ({ data, theme }) => {
   const movieDetail = useRef({
@@ -11,10 +12,9 @@ const MovieDetail = ({ data, theme }) => {
     secondRowContent: [`Status: ${data?.status}`],
   });
   const dispatch = useDispatch();
+  const type = useAppType();
 
   useEffect(() => {
-    const type = localStorage.getItem("type");
-
     if (type === "tv") {
       const lastSeasonYear = data?.last_air_date?.split("-")[0];
 

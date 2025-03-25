@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Buttons, MovieDetail, Poster, TopCast } from ".";
 import { userSelector } from "../features/auth";
+import { useAppType } from "../hooks/useAppType";
 import { useGetListQuery } from "../services/TMDB";
 
 import BG_LIGHT from "../assets/backgrounds/bg_01_blue.png";
@@ -12,28 +13,25 @@ import BG_DARK from "../assets/backgrounds/bg_01_red.png";
 
 const MovieInformation = ({ data, setOpenModal, id, theme }) => {
   const movieName = data?.title || data?.name;
-  const type = localStorage.getItem("type");
-  const media_type = type === "movie" || type === "tv" ? type : "movie";
+  const type = useAppType();
   const { user } = useSelector(userSelector);
   const {
     data: favoriteMovies,
     error: favoriteMoviesError,
     refetch: favoriteRefetch,
   } = useGetListQuery({
-    listName: "favorite/movies",
+    listName: `favorite/${type === "movie" ? "movies" : "tv"}`,
     accountId: user.id,
     sessionId: localStorage.getItem("session_id"),
-    page: 1,
   });
   const {
     data: watchListMovies,
     error: watchListMoviesError,
     refetch: watchlistRefetch,
   } = useGetListQuery({
-    listName: "watchlist/movies",
+    listName: `watchlist/${type === "movie" ? "movies" : "tv"}`,
     accountId: user.id,
     sessionId: localStorage.getItem("session_id"),
-    page: 1,
   });
 
   // We want to know if a movie is already in favorites or watchlists
@@ -49,7 +47,7 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
         `https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${process.env.REACT_APP_TMDB_API_KEY
         }&session_id=${localStorage.getItem("session_id")}`,
         {
-          media_type,
+          type,
           media_id: id,
           favorite: !isMovieFavorited,
         }
@@ -69,13 +67,14 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
       );
     }
   };
+
   const addToWatchList = async () => {
     try {
       await axios.post(
         `https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${process.env.REACT_APP_TMDB_API_KEY
         }&session_id=${localStorage.getItem("session_id")}`,
         {
-          media_type,
+          type,
           media_id: id,
           watchlist: !isMovieWatchListed,
         }
@@ -109,8 +108,6 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
       !!watchListMovies?.results?.find((movie) => movie.id === data?.id)
     );
   }, [watchListMovies, data]);
-
-  // ReFetch
 
   useEffect(() => {
     favoriteRefetch();
@@ -173,12 +170,19 @@ const MovieInformation = ({ data, setOpenModal, id, theme }) => {
         }}
         mx="auto"
       >
-        <Typography variant="h4" gutterBottom>
-          Overview
-        </Typography>
-        <Typography mb="2rem" align="justify">
-          {data?.overview}
-        </Typography>
+        {data?.overview
+          ? (
+            <>
+              <Typography variant="h4" gutterBottom>
+                Overview
+              </Typography>
+              <Typography mb="2rem" align="justify">
+                {data.overview}
+              </Typography>
+            </>
+          )
+          : null
+        }
       </Grid>
       {/* TopCast and Action Buttons: Website, IMDB, Trailer, Add to Favorite, Add to watchlist, Back to previous page */}
       <Grid item container xs={12} mt={5}>

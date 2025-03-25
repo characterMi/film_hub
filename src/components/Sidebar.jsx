@@ -10,14 +10,13 @@ import { useGetGenresQuery } from "../services/TMDB";
 import { CategoryAndGenre, DownloadBtn, Error, Loader } from "./";
 import ChangeType from "./ChangeType";
 
-let value = "upcoming";
-
-if (localStorage.getItem("type") === "tv") value = "on_the_air";
-
 const categories = [
   { label: "Popular", value: "popular" },
   { label: "Top Rated", value: "top_rated" },
-  { label: "Upcoming", value },
+  {
+    label: "Upcoming",
+    value: localStorage.getItem("type") === "tv" ? "on_the_air" : "upcoming",
+  },
 ];
 
 const Sidebar = ({ theme, setIsMenuOpen }) => {
