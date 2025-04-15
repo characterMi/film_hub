@@ -42,15 +42,16 @@ const MoviePage = ({ theme }) => {
       {/* Recommended movies */}
       <RecommendedAndActorMovies
         theme={theme}
-        data={recommendations}
-        text="You might also like"
+        data={recommendations?.results ?? []}
+        title="You might also like"
         loading={isRecommendationsFetching}
         error={recommendationsError}
-        page={currentPage}
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        numberOfPages={recommendations?.total_pages ?? 0}
       />
       {/* Trailer */}
-      <Trailer data={data} openModal={openModal} setOpenModal={setOpenModal} />
+      <Trailer video={data?.videos?.results?.[0]} openModal={openModal} setOpenModal={setOpenModal} />
     </Grid>
   );
 };

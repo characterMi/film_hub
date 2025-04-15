@@ -11,12 +11,12 @@ import {
   Toolbar,
   useMediaQuery,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Auth, Search, Sidebar } from ".";
-import { ColorModeContext } from "../themes/ThemeProviderComponent";
+import { useTheme } from "../themes/ThemeProviderComponent";
 
 const Navbar = ({ theme }) => {
-  const colorToggleMode = useContext(ColorModeContext);
+  const { toggleTheme } = useTheme();
   const isMobile = useMediaQuery("(max-width:599px)");
   const isTablet = useMediaQuery("(max-width:899px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +49,7 @@ const Navbar = ({ theme }) => {
           <IconButton
             color="inherit"
             sx={{ ml: 1 }}
-            onClick={colorToggleMode.toggleColorMode}
+            onClick={toggleTheme}
             aria-label="Toggle dark mode"
           >
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}

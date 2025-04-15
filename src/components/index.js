@@ -13,7 +13,7 @@ export { default as MovieInformation } from "./MovieInformation";
 export { default as MovieList } from "./MovieList";
 export { default as MoviePoster } from "./MoviePoster";
 export { default as Navbar } from "./Navbar";
-export { default as PaginationComponent } from "./PaginationComponent";
+export { default as Pagination } from "./Pagination";
 export { default as Poster } from "./Poster";
 export { default as RatedCards } from "./RatedCards";
 export { default as RecommendedAndActorMovies } from "./RecommendedAndActorMovies";

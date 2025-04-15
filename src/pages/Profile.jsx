@@ -8,22 +8,16 @@ import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
 import { useAppType } from "../hooks/useAppType";
 import { useGetListQuery } from "../services/TMDB";
-import { a11yProps } from "../utils";
 
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {children}
-    </div>
-  );
-}
+const TabPanel = ({ children, value, index, ...props }) => (
+  <div
+    role="tabpanel"
+    hidden={value !== index}
+    {...props}
+  >
+    {children}
+  </div>
+);
 
 const Profile = ({ theme }) => {
   const type = useAppType();
@@ -53,17 +47,8 @@ const Profile = ({ theme }) => {
     page: 1,
   });
   const [searchParams, setSearchParams] = useSearchParams();
-  const tabIndex = searchParams.get("tab");
   const [alertBox, setAlertBox] = useState(false);
-  const [value, setValue] = useState(tabIndex || 0);
-
-  useEffect(() => {
-    if (tabIndex >= 0 && tabIndex <= 1) {
-      setValue(+tabIndex);
-    } else {
-      setValue(0);
-    }
-  }, [tabIndex]);
+  const [tabIndex, setTabIndex] = useState(Number(searchParams.get("tab")) === 1 ? 1 : 0);
 
   // Update lists, immediately after user added a movie to the lists
   useEffect(() => {
@@ -83,7 +68,7 @@ const Profile = ({ theme }) => {
 
   const handleTabChange = (_, newValue) => {
     setSearchParams({ tab: newValue });
-    setValue(newValue);
+    setTabIndex(newValue);
   }
 
   return (
@@ -134,29 +119,29 @@ const Profile = ({ theme }) => {
 
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: "2rem" }}>
         <Tabs
-          value={value}
+          value={tabIndex}
           onChange={handleTabChange}
           aria-label="Movie tabs"
           textColor="inherit"
         >
-          <Tab label="Favorites" {...a11yProps(0)} />
-          <Tab label="Watchlist" {...a11yProps(1)} />
+          <Tab label="Favorites" aria-controls="Favorites tabpanel" />
+          <Tab label="Watchlist" aria-controls="Watchlist tabpanel" />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={tabIndex} index={0}>
         <UserMovies
           theme={theme}
-          movies={favoriteMovies}
+          movies={favoriteMovies?.results ?? []}
           fallbackText="Add some favorite movies to see them here!"
           title="Favorite Movies"
           isLoading={isFavoriteMoviesFetching}
           isError={favoriteMoviesError}
         />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={tabIndex} index={1}>
         <UserMovies
           theme={theme}
-          movies={watchListMovies}
+          movies={watchListMovies?.results ?? []}
           fallbackText={`Add some movies to "watchlist" and you'll see them here!`}
           title="Watchlist Movies"
           isLoading={isWatchListMoviesFetching}

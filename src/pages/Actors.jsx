@@ -38,12 +38,13 @@ const Actors = ({ theme }) => {
         {/* Actor's Movies */}
         <RecommendedAndActorMovies
           theme={theme}
-          data={moviesData}
-          text="Movies"
+          data={moviesData?.results ?? []}
+          title="Movies"
           loading={isMoviesFetching}
           error={moviesError}
-          page={currentPage}
+          currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          numberOfPages={moviesData?.total_pages ?? 0}
         />
       </Grid>
     </>

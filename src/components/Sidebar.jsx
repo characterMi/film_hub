@@ -44,7 +44,7 @@ const Sidebar = ({ theme, setIsMenuOpen }) => {
         />
       </Link>
       <Divider />
-      <ChangeType />
+      <ChangeType theme={theme} />
       <Divider />
       <List>
         <ListSubheader>Categories</ListSubheader>

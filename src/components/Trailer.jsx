@@ -1,6 +1,6 @@
 import { Box, Modal, Typography } from "@mui/material";
 
-const Trailer = ({ data, openModal, setOpenModal }) => (
+const Trailer = ({ video, openModal, setOpenModal }) => (
   <Modal
     closeAfterTransition
     open={openModal}
@@ -11,7 +11,7 @@ const Trailer = ({ data, openModal, setOpenModal }) => (
       alignItems: "center",
     }}
   >
-    {data?.videos?.results?.length > 0 ? (
+    {video ? (
       <>
         <Typography
           onClick={() => setOpenModal(false)}
@@ -32,7 +32,7 @@ const Trailer = ({ data, openModal, setOpenModal }) => (
           component="iframe"
           autoPlay
           title="Trailer"
-          src={`https://www.youtube.com/embed/${data?.videos?.results[0].key}`}
+          src={`https://www.youtube.com/embed/${video?.key}`}
           allow="autoplay"
           sx={{
             width: "100%",

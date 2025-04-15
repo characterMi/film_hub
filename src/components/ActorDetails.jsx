@@ -30,7 +30,7 @@ const ActorDetails = ({ data, theme }) => (
         sx={{ fontSize: { xs: "38px", sm: "42px", lg: "56px", xl: "76px" } }}
         gutterBottom
       >
-        {data?.name}
+        {data?.name ?? "(Unknown)"}
       </Typography>
       <Typography variant="h5" gutterBottom>
         Born: {new Date(data?.birthday).toDateString()}

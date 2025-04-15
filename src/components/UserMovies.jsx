@@ -25,7 +25,7 @@ const UserMovies = ({
 
     return (
         <Box mb="2rem" mt="2rem">
-            {!movies?.results?.length ? (
+            {movies.length < 1 ? (
                 <Typography variant="h5">
                     {fallbackText}
                 </Typography>

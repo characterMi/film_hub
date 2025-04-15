@@ -1,7 +1,7 @@
-import { Box, Pagination, useMediaQuery } from "@mui/material";
+import { Box, Pagination as PaginationFromMUI, useMediaQuery } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
+const Pagination = ({ numberOfPages, currentPage, setCurrentPage, theme }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const paginate = (_, value) => {
@@ -29,13 +29,13 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
         my: "30px",
       }}
     >
-      {movies?.total_pages > 1 ? (
-        <Pagination
+      {numberOfPages > 1 ? (
+        <PaginationFromMUI
           color={theme.palette.mode === "light" ? "primary" : "error"}
           shape="rounded"
           defaultPage={1}
-          count={movies?.total_pages < 500 ? movies?.total_pages : 500}
-          page={page}
+          count={numberOfPages < 500 ? numberOfPages : 500}
+          page={currentPage}
           onChange={paginate}
           size={isMobile ? "medium" : "large"}
         />
@@ -44,4 +44,4 @@ const PaginationComponent = ({ movies, page, setCurrentPage, theme }) => {
   );
 };
 
-export default PaginationComponent;
+export default Pagination;

@@ -12,7 +12,6 @@ const Auth = ({ isMobile, theme }) => {
     const { isAuthenticated, user } = useSelector(userSelector);
     const [loading, setLoading] = useState(false);
     const token = localStorage.getItem("request_token");
-    const session_IdFromLocalStorage = localStorage.getItem("session_id");
 
     useEffect(() => {
         const loginUser = async () => {
@@ -20,21 +19,22 @@ const Auth = ({ isMobile, theme }) => {
 
             setLoading(true);
             try {
+                const sessionIdFromLocalStorage = localStorage.getItem("session_id");
                 // Check if the user Logged in or not
-                if (session_IdFromLocalStorage) {
+                if (sessionIdFromLocalStorage) {
                     const { data: userData } = await moviesApi.get(
-                        `/account?session_id=${session_IdFromLocalStorage}`
+                        `/account?session_id=${sessionIdFromLocalStorage}`
                     );
                     dispatch(setUser(userData));
                 } else {
-                    const session_Id = await createSessionId();
+                    const sessionId = await createSessionId();
                     const { data: userData } = await moviesApi.get(
-                        `/account?session_id=${session_Id}`
+                        `/account?session_id=${sessionId}`
                     );
                     dispatch(setUser(userData));
                 }
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
             setLoading(false);
         };

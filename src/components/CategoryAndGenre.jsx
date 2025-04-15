@@ -12,6 +12,7 @@ const CategoryAndGenre = ({ theme, value, src, text }) => {
         style={{
           color: theme.palette.mode === "light" ? "#000" : "#fff",
           textDecoration: "none",
+          width: "100%",
         }}
       >
         <ListItemButton onClick={() => dispatch(selectGenreOrCategory(value))}>

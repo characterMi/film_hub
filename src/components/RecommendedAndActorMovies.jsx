@@ -1,44 +1,32 @@
 import { Box, Typography } from "@mui/material";
-import { Error, Loader, MovieList, PaginationComponent } from ".";
+import { Loader, MovieList, Pagination } from ".";
 
 const RecommendedAndActorMovies = ({
   theme,
   data,
-  text,
+  title,
   loading,
   error,
-  page,
+  currentPage,
   setCurrentPage,
+  numberOfPages,
 }) => {
   if (loading) return <Loader size="8rem" />;
 
-  if (error) return <Error backButton theme={theme} text="Oops ! No results" />;
+  if (error || data.length < 1) return null;
 
   return (
     <Box mt="5rem" width="100%">
       <Typography variant="h3" align="center" gutterBottom mt={3}>
-        {text}
+        {title}
       </Typography>
-      {data?.results?.length > 0 ? (
-        <>
-          <MovieList movies={data} theme={theme} />
-          <PaginationComponent
-            theme={theme}
-            movies={data}
-            page={page}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
-      ) : (
-        <Typography
-          color={theme.palette.mode === "light" ? "primary.main" : "error.main"}
-          mt={5}
-          align="center"
-          variant="h5"
-        >
-          Sorry, nothing was found.
-        </Typography>
-      )}
+      <MovieList movies={data} theme={theme} />
+      <Pagination
+        theme={theme}
+        numberOfPages={numberOfPages}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Box>
   );
 };

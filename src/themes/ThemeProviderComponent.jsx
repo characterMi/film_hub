@@ -1,10 +1,16 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { createContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
-export const ColorModeContext = createContext();
+const ThemeContext = createContext();
+
+function getThemeFromStorage() {
+  if (localStorage.getItem("mode") === "dark") return "dark";
+
+  return "light";
+}
 
 const ThemeProviderComponent = ({ children }) => {
-  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
+  const [mode, setMode] = useState(getThemeFromStorage);
   const theme = useMemo(
     () =>
       createTheme({
@@ -37,14 +43,13 @@ const ThemeProviderComponent = ({ children }) => {
       }),
     [mode]
   );
-  const toggleColorMode = () => {
+
+  const toggleTheme = () => {
     const meta = document.querySelector("meta[name=color-scheme]");
 
     if (mode === "light") {
       localStorage.setItem("mode", "dark");
-
       meta.setAttribute("content", "dark");
-
       return setMode("dark");
     }
 
@@ -54,10 +59,20 @@ const ThemeProviderComponent = ({ children }) => {
   };
 
   return (
-    <ColorModeContext.Provider value={{ mode, setMode, toggleColorMode }}>
+    <ThemeContext.Provider value={{ theme: mode, toggleTheme }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ColorModeContext.Provider>
+    </ThemeContext.Provider>
   );
 };
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+
+  if (context === undefined) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+
+  return context;
+}
 
 export default ThemeProviderComponent;

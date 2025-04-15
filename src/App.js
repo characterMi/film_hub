@@ -4,8 +4,6 @@ import { Route, Routes, useSearchParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Loader, Navbar } from "./components";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const Actors = lazy(() => import("./pages/Actors"));
 const MoviePage = lazy(() => import("./pages/MoviePage"));
 const Movies = lazy(() => import("./pages/Movies"));

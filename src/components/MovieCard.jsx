@@ -15,7 +15,6 @@ import Poster from "./Poster";
 const MovieCard = ({ movie, i, theme }) => {
   const type = useAppType();
   const isMobile = useMediaQuery("(max-width:600px)");
-  const movieName = movie?.title || movie?.name;
   const pathName = useLocation().pathname;
   const isActorPage = pathName.includes("actors");
 
@@ -74,7 +73,7 @@ const MovieCard = ({ movie, i, theme }) => {
               }}
               className="line-clamp-1"
             >
-              {movieName ?? "No title"}
+              {movie?.title ?? movie?.name ?? "No title"}
             </Typography>
             <Box
               alignItems="center"

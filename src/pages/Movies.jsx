@@ -5,7 +5,7 @@ import {
   Loader,
   MovieList,
   MoviePoster,
-  PaginationComponent,
+  Pagination,
 } from "../components";
 import { usePagination } from "../hooks/usePagination";
 import { useGetMoviesQuery } from "../services/TMDB";
@@ -42,10 +42,10 @@ const Movies = ({ theme }) => {
   return (
     <div>
       <MoviePoster movie={data?.results[0]} />
-      <MovieList movies={data} theme={theme} />
-      <PaginationComponent
-        movies={data}
-        page={currentPage}
+      <MovieList movies={data?.results ?? []} theme={theme} />
+      <Pagination
+        numberOfPages={data?.total_pages ?? 0}
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         theme={theme}
       />

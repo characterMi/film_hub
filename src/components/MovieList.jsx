@@ -10,9 +10,9 @@ const MovieList = ({ movies, theme, isProfilePage }) => (
     }}
     rowGap="2rem"
   >
-    {movies?.results?.map((movie, index) => {
+    {movies.map((movie, index) => {
       if (!isProfilePage) {
-        return !index
+        return index === 0
           ? null
           : <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
       }

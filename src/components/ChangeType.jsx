@@ -1,8 +1,7 @@
-import { FormControl, InputLabel, MenuItem, Select, useTheme } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useAppType } from "../hooks/useAppType";
 
-const ChangeType = () => {
-    const theme = useTheme();
+const ChangeType = ({ theme }) => {
     const isDarkMode = theme.palette.mode === "dark";
     const type = useAppType();
 
