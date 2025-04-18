@@ -45,6 +45,17 @@
   line-clamp: 1;
 }
 
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
 .movie-card__description {
   font-size: 14px;
   text-align: justify;
@@ -74,20 +85,13 @@
 }
 
 @media (max-width: 599px) {
+  .toolbar {
+    height: 120px;
+  }
+
   .movie-card__description {
     -webkit-line-clamp: unset;
     line-clamp: unset;
-  }
-
-  .search-box {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .search-input {
-    margin-top: -10px;
-    margin-bottom: 10px;
   }
 
   .container-space-around {

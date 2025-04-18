@@ -1,6 +1,4 @@
 import {
-  Brightness4,
-  Brightness7,
   Menu,
 } from "@mui/icons-material";
 import {
@@ -13,10 +11,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Auth, Search, Sidebar } from ".";
-import { useTheme } from "../themes/ThemeProviderComponent";
+import ChangeThemeIcon from "./ChangeThemeIcon";
 
 const Navbar = ({ theme }) => {
-  const { toggleTheme } = useTheme();
   const isMobile = useMediaQuery("(max-width:599px)");
   const isTablet = useMediaQuery("(max-width:899px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,10 +23,12 @@ const Navbar = ({ theme }) => {
       <AppBar position="fixed">
         <Toolbar
           sx={{
-            height: "80px",
+            height: { xs: "110px", sm: "80px" },
+            pb: { xs: "20px", sm: "0" },
             ml: { xs: 0, md: "240px" },
             display: "flex",
             justifyContent: "space-between",
+            alignItems: { xs: "start", sm: "center" },
             flexWrap: { xs: "wrap", sm: "nowrap" },
           }}
         >
@@ -46,14 +45,9 @@ const Navbar = ({ theme }) => {
           >
             <Menu />
           </IconButton>
-          <IconButton
-            color="inherit"
-            sx={{ ml: 1 }}
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-          >
-            {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+
+          <ChangeThemeIcon theme={theme} />
+
           {!isMobile && <Search theme={theme} />}
 
           <Auth isMobile={isMobile} theme={theme} />
