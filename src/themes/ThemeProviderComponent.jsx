@@ -30,6 +30,7 @@ const ThemeProviderComponent = ({ children }) => {
           values: {
             xs: 0,
             sm: 600,
+            sml: 768,
             md: 900,
             mdl: 1000,
             lg: 1200,

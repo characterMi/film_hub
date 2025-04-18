@@ -23,7 +23,8 @@ const ActorDetails = ({ data, theme }) => (
         display: "flex",
         justifyContent: "start",
         flexDirection: "column",
-        overflow: "hidden",
+        aspectRatio: { sm: 6 / 9, md: 15 / 16 },
+        height: "100%",
       }}
     >
       <Typography
@@ -35,7 +36,7 @@ const ActorDetails = ({ data, theme }) => (
       <Typography variant="h5" gutterBottom>
         Born: {new Date(data?.birthday).toDateString()}
       </Typography>
-      <Biography text={data?.biography} theme={theme} />
+      <Biography text={data?.biography} theme={theme} withinGrid />
       <Box mt="2rem" display="flex" justifyContent="center">
         <Button
           color={theme.palette.mode === "light" ? "primary" : "error"}
@@ -56,7 +57,8 @@ const ActorDetails = ({ data, theme }) => (
         </Button>
       </Box>
     </Grid>
-    <Biography text={data?.biography} theme={theme} smallDevice />
+
+    <Biography text={data?.biography} theme={theme} />
   </>
 );
 

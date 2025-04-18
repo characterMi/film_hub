@@ -79,6 +79,7 @@ const Search = ({ theme }) => {
           borderRadius: "9999px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
           width: "100%",
+          cursor: "pointer",
         }}
       >
         <SearchOutlined sx={{ color: theme.palette.mode === "light" ? "#646464" : "#d1d1d1" }} />
