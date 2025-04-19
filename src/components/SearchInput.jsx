@@ -31,7 +31,7 @@ const SearchInput = ({ theme, setData, setIsModalOpen, handleKeyPress }) => {
                     setMessage(result.message);
                 } else {
                     setMessage("");
-                    // We only have a message if either we have an error or we didn't find any movie, so if we don't have a message, we for sure have some movie, so we cache it.
+                    // We only have a message if either we have an error or we haven't find any movie, so if we don't have a message, we for sure have some movies, so we cache it.
                     setCachedMovies((prevCache) => ({
                         ...prevCache,
                         [debouncedQuery.trim()]: result.data,
