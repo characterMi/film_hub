@@ -11,10 +11,18 @@ const SearchInput = ({ theme, setData, setIsModalOpen, handleKeyPress }) => {
     const [message, setMessage] = useState("");
     const debouncedQuery = useDebounce(query);
 
+    const [cachedMovies, setCachedMovies] = useState({});
+
     const type = useAppType();
 
     useEffect(() => {
         if (debouncedQuery.trim() !== "") {
+            const cachedData = cachedMovies[debouncedQuery.trim()];
+            if (cachedData) {
+                setData(cachedData);
+                return;
+            }
+
             (async function () {
                 setIsFetching(true);
                 const result = await getMoviesBySearchQuery(debouncedQuery, type);
@@ -23,6 +31,11 @@ const SearchInput = ({ theme, setData, setIsModalOpen, handleKeyPress }) => {
                     setMessage(result.message);
                 } else {
                     setMessage("");
+                    // We only have a message if either we have an error or we didn't find any movie, so if we don't have a message, we for sure have some movie, so we cache it.
+                    setCachedMovies((prevCache) => ({
+                        ...prevCache,
+                        [debouncedQuery.trim()]: result.data,
+                    }));
                 }
                 setIsFetching(false);
             })();
