@@ -23,8 +23,9 @@ const Navbar = ({ theme }) => {
       <AppBar position="fixed">
         <Toolbar
           sx={{
-            height: { xs: "110px", sm: "80px" },
-            pb: { xs: "20px", sm: "0" },
+            height: { xs: "120px", sm: "80px" },
+            pb: { xs: "20px", sm: 0 },
+            pt: { xs: "10px", sm: 0 },
             ml: { xs: 0, md: "240px" },
             display: "flex",
             justifyContent: "space-between",

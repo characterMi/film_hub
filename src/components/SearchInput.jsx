@@ -68,7 +68,7 @@ const SearchInput = ({ theme, setData, setIsModalOpen, handleKeyPress }) => {
                                         "&:hover": {
                                             color: theme.palette.mode === "light" ? "black" : "white",
                                         },
-                                        transition: "0.2s color ease-in-out",
+                                        transition: "0.1s color ease-in-out",
                                         cursor: "pointer",
                                     }}
                                     onClick={() => setIsModalOpen(false)}
