@@ -20,6 +20,7 @@ const SearchInput = ({ theme, setData, setIsModalOpen, handleKeyPress }) => {
             const cachedData = cachedMovies[debouncedQuery.trim()];
             if (cachedData) {
                 setData(cachedData);
+                setMessage("");
                 return;
             }
 
