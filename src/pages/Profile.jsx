@@ -1,14 +1,10 @@
 import { ExitToApp } from "@mui/icons-material";
 import { Avatar, Box, Button, Tab, Tabs, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { AlertBox, Pagination, UserMovies } from "../components";
+import { AlertBox, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
-import { useAppType } from "../hooks/useAppType";
-import { usePagination } from "../hooks/usePagination";
-import { useGetListQuery } from "../services/TMDB";
 
 const TabPanel = ({ children, value, index, ...props }) => (
   <div role="tabpanel" hidden={value !== index} {...props}>
@@ -17,56 +13,13 @@ const TabPanel = ({ children, value, index, ...props }) => (
 );
 
 const Profile = ({ theme }) => {
-  const type = useAppType();
-  const sessionId = localStorage.getItem("session_id");
-
   const { user } = useSelector(userSelector);
 
-  const [favoritesPage, setFavoritesPage] = usePagination();
-  const [watchlistPage, setWatchlistPage] = usePagination();
-  const {
-    data: favoriteMovies,
-    isFetching: isFavoriteMoviesFetching,
-    error: favoriteMoviesError,
-    refetch: favoriteRefetch,
-  } = useGetListQuery({
-    listName: `favorite/${type === "tv" ? "tv" : "movies"}`,
-    accountId: user.id,
-    sessionId,
-    page: favoritesPage,
-  });
-  const {
-    data: watchListMovies,
-    isFetching: isWatchListMoviesFetching,
-    error: watchListMoviesError,
-    refetch: watchlistRefetch,
-  } = useGetListQuery({
-    listName: `watchlist/${type === "tv" ? "tv" : "movies"}`,
-    accountId: user.id,
-    sessionId,
-    page: watchlistPage,
-  });
   const [searchParams, setSearchParams] = useSearchParams();
   const [alertBox, setAlertBox] = useState(false);
   const [tabIndex, setTabIndex] = useState(
     Number(searchParams.get("tab")) === 1 ? 1 : 0
   );
-
-  // Update lists, immediately after user added a movie to the lists
-  useEffect(() => {
-    if (!sessionId) {
-      toast.error("You need to login to view your profile!");
-      return;
-    }
-
-    const { unsubscribe: unsubscribeWatchlist } = watchlistRefetch();
-    const { unsubscribe: unsubscribeFavorites } = favoriteRefetch();
-
-    return () => {
-      unsubscribeWatchlist();
-      unsubscribeFavorites();
-    };
-  }, []);
 
   const handleTabChange = (_, newValue) => {
     setSearchParams({ tab: newValue });
@@ -132,14 +85,14 @@ const Profile = ({ theme }) => {
           mt: "2rem",
           position: "sticky",
           top: { xs: "120px", sm: "80px" },
-          background: theme.palette.mode === "light" ? "white" : "black",
+          background: theme.palette.mode === "light" ? "white" : "#121212",
           zIndex: 10,
         }}
       >
         <Tabs
           value={tabIndex}
           onChange={handleTabChange}
-          aria-label="Movie tabs"
+          aria-label="Movie list tabs"
           textColor="inherit"
         >
           <Tab label="Favorites" aria-controls="Favorites tabpanel" />
@@ -149,35 +102,19 @@ const Profile = ({ theme }) => {
       <TabPanel value={tabIndex} index={0}>
         <UserMovies
           theme={theme}
-          movies={favoriteMovies?.results ?? []}
+          listName="favorite"
+          userId={user.id}
           fallbackText="Add some favorite movies to see them here!"
           title="Favorite Movies"
-          isLoading={isFavoriteMoviesFetching}
-          isError={favoriteMoviesError}
-        />
-
-        <Pagination
-          numberOfPages={favoriteMovies?.total_pages ?? 0}
-          currentPage={favoritesPage}
-          setCurrentPage={setFavoritesPage}
-          theme={theme}
         />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         <UserMovies
           theme={theme}
-          movies={watchListMovies?.results ?? []}
+          listName="watchlist"
+          userId={user.id}
           fallbackText={`Add some movies to "watchlist" and you'll see them here!`}
           title="Watchlist Movies"
-          isLoading={isWatchListMoviesFetching}
-          isError={watchListMoviesError}
-        />
-
-        <Pagination
-          numberOfPages={watchListMovies?.total_pages ?? 0}
-          currentPage={watchlistPage}
-          setCurrentPage={setWatchlistPage}
-          theme={theme}
         />
       </TabPanel>
 

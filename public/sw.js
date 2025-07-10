@@ -16,33 +16,38 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  if (request.method !== "GET") {
+    return;
+  }
+
   event.respondWith(
     (async () => {
-      if (event.request.url.startsWith("https://image.tmdb.org")) {
-        event.respondWith(fetch(event.request));
-        return;
+      if (request.url.startsWith("https://image.tmdb.org")) {
+        return fetch(request);
       }
 
       const cache = await caches.open("filmhub");
 
-      const cachedResponse = await cache.match(event.request);
+      try {
+        const networkResponse = await fetch(request);
+        cache.put(request, networkResponse.clone());
+        return networkResponse;
+      } catch {
+        const cachedResponse = await cache.match(request);
 
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        })
-        .catch(() => {
-          return new Response(
-            "Network error and no cached data available. see the browser's console for more information",
+        return (
+          cachedResponse ||
+          new Response(
+            "Network error and no cached data available. See the browser's console for more information.",
             {
               status: 503,
               statusText: "Service Unavailable.",
             }
-          );
-        });
-
-      return cachedResponse || fetchPromise;
+          )
+        );
+      }
     })()
   );
 });

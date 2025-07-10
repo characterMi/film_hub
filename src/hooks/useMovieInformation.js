@@ -14,18 +14,21 @@ export const useMovieInformation = (data) => {
     error: favoriteMoviesError,
     refetch: favoriteRefetch,
   } = useGetListQuery({
-    listName: `favorite/${type === "movie" ? "movies" : "tv"}`,
+    listName: `favorite/${type === "tv" ? "tv" : "movies"}`,
     accountId: user.id,
     sessionId: localStorage.getItem("session_id"),
+    page: 1,
   });
+
   const {
     data: watchListMovies,
     error: watchListMoviesError,
     refetch: watchlistRefetch,
   } = useGetListQuery({
-    listName: `watchlist/${type === "movie" ? "movies" : "tv"}`,
+    listName: `watchlist/${type === "tv" ? "tv" : "movies"}`,
     accountId: user.id,
     sessionId: localStorage.getItem("session_id"),
+    page: 1,
   });
 
   // We want to know if a movie is already in favorites or watchlists
@@ -53,11 +56,13 @@ export const useMovieInformation = (data) => {
       }
     } catch (error) {
       console.log(error);
-    }
-    if (favoriteMoviesError) {
-      toast.error(
-        "Sorry, an error has occurred. if you are not logged in, please first login !"
-      );
+
+      if (favoriteMoviesError) {
+        console.error(watchListMoviesError);
+        toast.error(
+          "Sorry, an error has occurred. if you are not logged in, please first login !"
+        );
+      }
     }
   };
 
@@ -81,31 +86,37 @@ export const useMovieInformation = (data) => {
       }
     } catch (error) {
       console.log(error);
-    }
-    if (watchListMoviesError) {
-      toast.error(
-        "Sorry, an error has occurred. if you are not logged in, please first login !"
-      );
+
+      if (watchListMoviesError) {
+        console.error(watchListMoviesError);
+        toast.error(
+          "Sorry, an error has occurred. if you are not logged in, please first login !"
+        );
+      }
     }
   };
 
   // Check if the user already add the movie to watchlist or favorites
-
   useEffect(() => {
     setIsMovieFavorited(
-      !!favoriteMovies?.results?.find((movie) => movie.id === data?.id)
+      favoriteMovies?.results?.some((movie) => movie.id === data?.id)
     );
   }, [favoriteMovies, data]);
 
   useEffect(() => {
     setIsMovieWatchListed(
-      !!watchListMovies?.results?.find((movie) => movie.id === data?.id)
+      watchListMovies?.results?.some((movie) => movie.id === data?.id)
     );
   }, [watchListMovies, data]);
 
   useEffect(() => {
-    favoriteRefetch();
-    watchlistRefetch();
+    const { unsubscribe: unsubscribeWatchlist } = watchlistRefetch();
+    const { unsubscribe: unsubscribeFavorites } = favoriteRefetch();
+
+    return () => {
+      unsubscribeWatchlist();
+      unsubscribeFavorites();
+    };
   }, []);
 
   return {
