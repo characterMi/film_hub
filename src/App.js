@@ -25,6 +25,19 @@ function App() {
       setSearchParams({});
       window.location.reload();
     }
+
+    const isStandAlone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true;
+
+    if (isStandAlone) {
+      const viewportMeta = document.querySelector('meta[name="viewport"]');
+
+      viewportMeta?.setAttribute(
+        "content",
+        viewportMeta?.content.replace("user-scalable=yes", "user-scalable=no")
+      );
+    }
   }, []);
 
   return (

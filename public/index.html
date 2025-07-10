@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=yes"
     />
     <meta name="theme-color" content="#000000" />
     <meta name="color-scheme" content="only light" />
@@ -21,16 +21,9 @@
         meta.setAttribute("content", mode);
       }
 
-      window.addEventListener("load", () => {
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker
-            .register("/film_hub/sw.js")
-            .then((res) => {
-              console.log("Serviceworker Started.");
-            })
-            .catch((error) => console.error("an Error has been occurred!"));
-        }
-      });
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/film_hub/sw.js");
+      }
     </script>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/filmhub-192.png" />
