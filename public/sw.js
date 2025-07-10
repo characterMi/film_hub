@@ -14,3 +14,35 @@ self.addEventListener("install", (event) => {
     })
   );
 });
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    (async () => {
+      if (event.request.url.startsWith("https://image.tmdb.org")) {
+        event.respondWith(fetch(event.request));
+        return;
+      }
+
+      const cache = await caches.open("filmhub");
+
+      const cachedResponse = await cache.match(event.request);
+
+      const fetchPromise = fetch(event.request)
+        .then((networkResponse) => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        })
+        .catch(() => {
+          return new Response(
+            "Network error and no cached data available. see the browser's console for more information",
+            {
+              status: 503,
+              statusText: "Service Unavailable.",
+            }
+          );
+        });
+
+      return cachedResponse || fetchPromise;
+    })()
+  );
+});
