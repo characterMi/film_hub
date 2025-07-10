@@ -4,17 +4,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AlertBox, UserMovies } from "../components";
+import { AlertBox, Pagination, UserMovies } from "../components";
 import { userSelector } from "../features/auth";
 import { useAppType } from "../hooks/useAppType";
+import { usePagination } from "../hooks/usePagination";
 import { useGetListQuery } from "../services/TMDB";
 
 const TabPanel = ({ children, value, index, ...props }) => (
-  <div
-    role="tabpanel"
-    hidden={value !== index}
-    {...props}
-  >
+  <div role="tabpanel" hidden={value !== index} {...props}>
     {children}
   </div>
 );
@@ -24,6 +21,9 @@ const Profile = ({ theme }) => {
   const sessionId = localStorage.getItem("session_id");
 
   const { user } = useSelector(userSelector);
+
+  const [favoritesPage, setFavoritesPage] = usePagination();
+  const [watchlistPage, setWatchlistPage] = usePagination();
   const {
     data: favoriteMovies,
     isFetching: isFavoriteMoviesFetching,
@@ -33,7 +33,7 @@ const Profile = ({ theme }) => {
     listName: `favorite/${type === "tv" ? "tv" : "movies"}`,
     accountId: user.id,
     sessionId,
-    page: 1,
+    page: favoritesPage,
   });
   const {
     data: watchListMovies,
@@ -44,11 +44,13 @@ const Profile = ({ theme }) => {
     listName: `watchlist/${type === "tv" ? "tv" : "movies"}`,
     accountId: user.id,
     sessionId,
-    page: 1,
+    page: watchlistPage,
   });
   const [searchParams, setSearchParams] = useSearchParams();
   const [alertBox, setAlertBox] = useState(false);
-  const [tabIndex, setTabIndex] = useState(Number(searchParams.get("tab")) === 1 ? 1 : 0);
+  const [tabIndex, setTabIndex] = useState(
+    Number(searchParams.get("tab")) === 1 ? 1 : 0
+  );
 
   // Update lists, immediately after user added a movie to the lists
   useEffect(() => {
@@ -63,17 +65,23 @@ const Profile = ({ theme }) => {
     return () => {
       unsubscribeWatchlist();
       unsubscribeFavorites();
-    }
+    };
   }, []);
 
   const handleTabChange = (_, newValue) => {
     setSearchParams({ tab: newValue });
     setTabIndex(newValue);
-  }
+  };
 
   return (
-    <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap="1rem">
+    <Box sx={{ position: "relative" }}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+        gap="1rem"
+      >
         <Box display="flex" overflow="hidden" flex="1" minWidth="200px">
           <Avatar
             sx={{
@@ -99,7 +107,7 @@ const Profile = ({ theme }) => {
               sx={{
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                maxWidth: "100%"
+                maxWidth: "100%",
               }}
             >
               {user?.username ? `@${user.username}` : "User"}
@@ -117,7 +125,17 @@ const Profile = ({ theme }) => {
         </Button>
       </Box>
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: "2rem" }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+          mt: "2rem",
+          position: "sticky",
+          top: { xs: "120px", sm: "80px" },
+          background: theme.palette.mode === "light" ? "white" : "black",
+          zIndex: 10,
+        }}
+      >
         <Tabs
           value={tabIndex}
           onChange={handleTabChange}
@@ -137,6 +155,13 @@ const Profile = ({ theme }) => {
           isLoading={isFavoriteMoviesFetching}
           isError={favoriteMoviesError}
         />
+
+        <Pagination
+          numberOfPages={favoriteMovies?.total_pages ?? 0}
+          currentPage={favoritesPage}
+          setCurrentPage={setFavoritesPage}
+          theme={theme}
+        />
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         <UserMovies
@@ -146,6 +171,13 @@ const Profile = ({ theme }) => {
           title="Watchlist Movies"
           isLoading={isWatchListMoviesFetching}
           isError={watchListMoviesError}
+        />
+
+        <Pagination
+          numberOfPages={watchListMovies?.total_pages ?? 0}
+          currentPage={watchlistPage}
+          setCurrentPage={setWatchlistPage}
+          theme={theme}
         />
       </TabPanel>
 
