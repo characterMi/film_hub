@@ -8,11 +8,11 @@ const assets = [
   "/film_hub/icons/filmhub-192.png",
   "/film_hub/app.webmanifest",
   "/film_hub/static/css/main.7fbe36c9.css",
-  "/film_hub/static/js/main.c5dacf60.js",
-  "/film_hub/static/js/527.283f6bb3.chunk.js",
-  "/film_hub/static/js/544.135b52d0.chunk.js",
-  "/film_hub/static/js/174.0766b503.chunk.js",
-  "/film_hub/static/js/670.52f733a6.chunk.js",
+  "/film_hub/static/js/main.cb59e71d.js",
+  "/film_hub/static/js/527.a224fa0c.chunk.js",
+  "/film_hub/static/js/544.bb143285.chunk.js",
+  "/film_hub/static/js/174.3ab521de.chunk.js",
+  "/film_hub/static/js/670.07f4d258.chunk.js",
   "/film_hub/static/js/240.8b104f0b.chunk.js",
   "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
   "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
@@ -22,11 +22,11 @@ const assets = [
   "/film_hub/static/media/kids.6edf58c08e3829731c43.png",
   "/film_hub/static/media/reality.5d5f84e93142db9e2199.png",
   "/film_hub/static/css/main.7fbe36c9.css.map",
-  "/film_hub/static/js/main.c5dacf60.js.map",
-  "/film_hub/static/js/527.283f6bb3.chunk.js.map",
-  "/film_hub/static/js/544.135b52d0.chunk.js.map",
-  "/film_hub/static/js/174.0766b503.chunk.js.map",
-  "/film_hub/static/js/670.52f733a6.chunk.js.map",
+  "/film_hub/static/js/main.cb59e71d.js.map",
+  "/film_hub/static/js/527.a224fa0c.chunk.js.map",
+  "/film_hub/static/js/544.bb143285.chunk.js.map",
+  "/film_hub/static/js/174.3ab521de.chunk.js.map",
+  "/film_hub/static/js/670.07f4d258.chunk.js.map",
   "/film_hub/static/js/240.8b104f0b.chunk.js.map",
 ];
 
@@ -39,33 +39,38 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  if (request.method !== "GET") {
+    return;
+  }
+
   event.respondWith(
     (async () => {
-      if (event.request.url.startsWith("https://image.tmdb.org")) {
-        event.respondWith(fetch(event.request));
-        return;
+      if (request.url.startsWith("https://image.tmdb.org")) {
+        return fetch(request);
       }
 
       const cache = await caches.open("filmhub");
 
-      const cachedResponse = await cache.match(event.request);
+      try {
+        const networkResponse = await fetch(request);
+        cache.put(request, networkResponse.clone());
+        return networkResponse;
+      } catch {
+        const cachedResponse = await cache.match(request);
 
-      const fetchPromise = fetch(event.request)
-        .then((networkResponse) => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        })
-        .catch(() => {
-          return new Response(
-            "Network error and no cached data available. see the browser's console for more information",
+        return (
+          cachedResponse ||
+          new Response(
+            "Network error and no cached data available. See the browser's console for more information.",
             {
               status: 503,
               statusText: "Service Unavailable.",
             }
-          );
-        });
-
-      return cachedResponse || fetchPromise;
+          )
+        );
+      }
     })()
   );
 });
