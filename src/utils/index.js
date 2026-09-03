@@ -44,3 +44,38 @@ export const createSessionId = async () => {
     }
   }
 };
+
+export const getMovieDefaultState = async (
+  movieId,
+  listName,
+  accountId,
+  type = "movie"
+) => {
+  const sessionId = localStorage.getItem("session_id");
+  const url = `https://api.themoviedb.org/3/account/${accountId}/${listName}/${
+    type === "tv" ? "tv" : "movies"
+  }?api_key=${process.env.REACT_APP_TMDB_API_KEY}&session_id=${sessionId}`;
+
+  const { data } = await axios.get(url + "&page=1");
+
+  if (!data) return false;
+
+  const checkIfMovieIsInPlaylist = (movies) =>
+    movies?.some((movie) => movie.id === movieId);
+
+  if (checkIfMovieIsInPlaylist(data.results)) {
+    return true;
+  }
+
+  if (!isNaN(data.total_pages) && data.total_pages > 1) {
+    for (let page = 2; page <= data.total_pages; page++) {
+      const { data } = await axios.get(url + `&page=${page}`);
+
+      if (checkIfMovieIsInPlaylist(data.results)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+};

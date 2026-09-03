@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { HashRouter } from "react-router-dom";
 import App from "./App";
 import store from "./app/store";
-import ThemeProvider from "./themes/ThemeProviderComponent";
+import ThemeProvider from "./providers/ThemeProviderComponent";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";

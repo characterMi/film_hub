@@ -14,9 +14,9 @@ import {
   ButtonGroup as ButtonGroupFromMUI,
   Grid,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
-import { useState } from "react";
+import { useAddMovieToPlaylist } from "../hooks/useAddMovieToPlaylist";
 
 const ButtonGroup = ({ children, theme }) => {
   const isMobile = useMediaQuery("(width < 400px)");
@@ -30,37 +30,10 @@ const ButtonGroup = ({ children, theme }) => {
     >
       {children}
     </ButtonGroupFromMUI>
-  )
-}
+  );
+};
 
-const Buttons = ({
-  data,
-  theme,
-  setOpenModal,
-  isMovieFavorited,
-  isMovieWatchListed,
-  addToFavorite,
-  addToWatchList,
-}) => {
-  const [isAddingToFavoritesLoading, setIsAddingToFavoritesLoading] = useState(false);
-  const [isAddingToWatchlistLoading, setIsAddingToWatchlistLoading] = useState(false);
-
-  async function handleAddToFavorites() {
-    setIsAddingToFavoritesLoading(true);
-
-    await addToFavorite();
-
-    setIsAddingToFavoritesLoading(false);
-  }
-
-  async function handleAddToWatchlist() {
-    setIsAddingToWatchlistLoading(true);
-
-    await addToWatchList();
-
-    setIsAddingToWatchlistLoading(false);
-  }
-
+const Buttons = ({ data, theme, setOpenModal }) => {
   return (
     <>
       <Grid item container mt="2rem">
@@ -94,32 +67,7 @@ const Buttons = ({
           </Grid>
           <Grid item>
             <ButtonGroup theme={theme}>
-              <Button
-                onClick={handleAddToFavorites}
-                endIcon={
-                  isMovieFavorited ? (
-                    <Favorite color={isAddingToFavoritesLoading ? "inherit" : "error"} />
-                  ) : (
-                    <FavoriteBorderOutlined color={isAddingToFavoritesLoading ? "inherit" : "error"} />
-                  )
-                }
-                disabled={isAddingToFavoritesLoading}
-              >
-                Favorite
-              </Button>
-              <Button
-                onClick={handleAddToWatchlist}
-                endIcon={
-                  isMovieWatchListed ? (
-                    <RemoveCircleOutline />
-                  ) : (
-                    <AddCircleOutline />
-                  )
-                }
-                disabled={isAddingToWatchlistLoading}
-              >
-                Watchlist
-              </Button>
+              <PlaylistButtons data={data} />
               <Button
                 endIcon={<ArrowBack />}
                 onClick={() => window.history.back()}
@@ -138,6 +86,39 @@ const Buttons = ({
       </Grid>
     </>
   );
-}
+};
+
+const PlaylistButtons = ({ data }) => {
+  const {
+    isFavoriteMoviesLoading,
+    isWatchlistMoviesLoading,
+    addToFavorite,
+    addToWatchList,
+    isMovieFavorited,
+    isMovieWatchListed,
+  } = useAddMovieToPlaylist(data);
+
+  return (
+    <>
+      <Button
+        onClick={addToFavorite}
+        endIcon={isMovieFavorited ? <Favorite /> : <FavoriteBorderOutlined />}
+        disabled={isFavoriteMoviesLoading}
+      >
+        Favorite
+      </Button>
+
+      <Button
+        onClick={addToWatchList}
+        endIcon={
+          isMovieWatchListed ? <RemoveCircleOutline /> : <AddCircleOutline />
+        }
+        disabled={isWatchlistMoviesLoading}
+      >
+        Watchlist
+      </Button>
+    </>
+  );
+};
 
 export default Buttons;
