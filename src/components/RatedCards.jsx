@@ -3,9 +3,11 @@ import { MovieList } from ".";
 
 const RatedCards = ({ theme, title, data }) => (
   <Box>
-    <Typography variant="h4" gutterBottom>− {title}</Typography>
+    <Typography variant="h4" gutterBottom>
+      − {title}
+    </Typography>
 
-    <MovieList movies={data} theme={theme} isProfilePage />
+    <MovieList movies={data} theme={theme} shouldRenderTheFirstItem />
   </Box>
 );
 

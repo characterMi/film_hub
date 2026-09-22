@@ -7,29 +7,17 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useAppType } from "../hooks/useAppType";
+import { Link } from "react-router-dom";
 import Poster from "./Poster";
 
 const MovieCard = ({ movie, i, theme }) => {
-  const type = useAppType();
   const isMobile = useMediaQuery("(max-width:600px)");
-  const pathName = useLocation().pathname;
-  const isActorPage = pathName.includes("actors");
-
-  function handleClick() {
-    if (isActorPage && type === "tv") {
-      toast.warning('You cannot go to an specific movie page while the type is set to "TV-Shows."')
-    }
-  }
 
   return (
     <Grid item px="10px" xs={12} sm={6} mdl={4} lgl={3} mt="2rem">
       <Grow in key={i} timeout={(i + 1) * 250}>
         <Box
-          onClick={handleClick}
-          component={isActorPage && type === "tv" ? "div" : Link}
+          component={Link}
           to={`/movie/${movie?.id}`}
           sx={{
             fontWeight: "bolder",
@@ -69,7 +57,7 @@ const MovieCard = ({ movie, i, theme }) => {
               color={theme.palette.mode === "light" ? "#000" : "#fff"}
               sx={{
                 fontSize: { xs: "24px", lg: "28px" },
-                fontWeight: "600"
+                fontWeight: "600",
               }}
               className="line-clamp-1"
             >

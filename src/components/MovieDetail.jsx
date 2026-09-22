@@ -23,7 +23,6 @@ const MovieDetail = ({ data, theme }) => {
           mt: { xs: 4, sm: 0 },
           backdropFilter: { xs: "none", sm: "blur(3px)" },
           borderRadius: "0 20px 20px 0",
-          background: theme.palette.mode === "dark" ? "#FFFFFF05" : "#00000005",
         }}
       >
         <Typography

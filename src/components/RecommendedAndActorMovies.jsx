@@ -20,7 +20,7 @@ const RecommendedAndActorMovies = ({
       <Typography variant="h3" align="center" gutterBottom mt={3}>
         {title}
       </Typography>
-      <MovieList movies={data} theme={theme} />
+      <MovieList movies={data} theme={theme} shouldRenderTheFirstItem />
       <Pagination
         theme={theme}
         numberOfPages={numberOfPages}

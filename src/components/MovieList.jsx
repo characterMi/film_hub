@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { MovieCard } from ".";
 
-const MovieList = ({ movies, theme, isProfilePage }) => (
+const MovieList = ({ movies, theme, shouldRenderTheFirstItem }) => (
   <Grid
     container
     sx={{
@@ -11,15 +11,16 @@ const MovieList = ({ movies, theme, isProfilePage }) => (
     rowGap="2rem"
   >
     {movies.map((movie, index) => {
-      if (!isProfilePage) {
-        return index === 0
-          ? null
-          : <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
+      if (!shouldRenderTheFirstItem) {
+        return index === 0 ? null : (
+          <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
+        );
       }
 
-      return <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
-    }
-    )}
+      return (
+        <MovieCard key={movie?.id} movie={movie} i={index} theme={theme} />
+      );
+    })}
   </Grid>
 );
 

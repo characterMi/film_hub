@@ -1,26 +1,19 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { ActorDetails, Error, Loader, MovieList } from "../components";
+import { useAppType } from "../hooks/useAppType";
 import {
-  ActorDetails,
-  Error,
-  Loader,
-  RecommendedAndActorMovies,
-} from "../components";
-import { usePagination } from "../hooks/usePagination";
-import {
+  useGetActorCreditsQuery,
   useGetActorDetailQuery,
-  useGetActorMoviesQuery,
 } from "../services/TMDB";
 
 const Actors = ({ theme }) => {
-  const [currentPage, setCurrentPage] = usePagination();
+  const type = useAppType();
+
   const { id } = useParams();
   const { data, isFetching, error } = useGetActorDetailQuery(id);
-  const {
-    data: moviesData,
-    isFetching: isMoviesFetching,
-    error: moviesError,
-  } = useGetActorMoviesQuery({ id, page: currentPage });
+  const { data: credits, isFetching: creditsLoading } =
+    useGetActorCreditsQuery(id);
 
   if (isFetching) {
     return <Loader size="8rem" />;
@@ -33,19 +26,24 @@ const Actors = ({ theme }) => {
   return (
     <>
       <Grid container className="container-space-around">
-        {/* Actor's Detail, such as the image, biography and ... */}
         <ActorDetails data={data} theme={theme} />
-        {/* Actor's Movies */}
-        <RecommendedAndActorMovies
-          theme={theme}
-          data={moviesData?.results ?? []}
-          title="Movies"
-          loading={isMoviesFetching}
-          error={moviesError}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          numberOfPages={moviesData?.total_pages ?? 0}
-        />
+
+        {creditsLoading ? (
+          <Loader size="8rem" />
+        ) : (
+          <>
+            <Typography variant="h3" align="center" gutterBottom mt={"5rem"}>
+              {type === "tv" ? "TV Shows" : "Movies"}
+            </Typography>
+
+            <MovieList
+              movies={[...(credits?.cast || [])].sort(
+                (a, b) => b.popularity - a.popularity
+              )}
+              theme={theme}
+            />
+          </>
+        )}
       </Grid>
     </>
   );
