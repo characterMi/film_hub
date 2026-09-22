@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/film_hub/static/css/main.c2476634.css",
-    "main.js": "/film_hub/static/js/main.389d61a5.js",
-    "static/js/527.8b449a1a.chunk.js": "/film_hub/static/js/527.8b449a1a.chunk.js",
-    "static/js/544.abcd934c.chunk.js": "/film_hub/static/js/544.abcd934c.chunk.js",
-    "static/js/174.b43168ef.chunk.js": "/film_hub/static/js/174.b43168ef.chunk.js",
-    "static/js/670.fc33aabe.chunk.js": "/film_hub/static/js/670.fc33aabe.chunk.js",
+    "main.js": "/film_hub/static/js/main.84371227.js",
+    "static/js/527.b6b2b96c.chunk.js": "/film_hub/static/js/527.b6b2b96c.chunk.js",
+    "static/js/544.3b257ca4.chunk.js": "/film_hub/static/js/544.3b257ca4.chunk.js",
+    "static/js/174.ccd88bc2.chunk.js": "/film_hub/static/js/174.ccd88bc2.chunk.js",
+    "static/js/670.6506b444.chunk.js": "/film_hub/static/js/670.6506b444.chunk.js",
     "static/js/240.8b104f0b.chunk.js": "/film_hub/static/js/240.8b104f0b.chunk.js",
     "static/media/bg_01_blue.png": "/film_hub/static/media/bg_01_blue.c471dfd35912a7bb95d4.png",
     "static/media/bg_01_red.png": "/film_hub/static/media/bg_01_red.ce403a095f68664d92d7.png",
@@ -16,15 +16,15 @@
     "static/media/reality.png": "/film_hub/static/media/reality.5d5f84e93142db9e2199.png",
     "index.html": "/film_hub/index.html",
     "main.c2476634.css.map": "/film_hub/static/css/main.c2476634.css.map",
-    "main.389d61a5.js.map": "/film_hub/static/js/main.389d61a5.js.map",
-    "527.8b449a1a.chunk.js.map": "/film_hub/static/js/527.8b449a1a.chunk.js.map",
-    "544.abcd934c.chunk.js.map": "/film_hub/static/js/544.abcd934c.chunk.js.map",
-    "174.b43168ef.chunk.js.map": "/film_hub/static/js/174.b43168ef.chunk.js.map",
-    "670.fc33aabe.chunk.js.map": "/film_hub/static/js/670.fc33aabe.chunk.js.map",
+    "main.84371227.js.map": "/film_hub/static/js/main.84371227.js.map",
+    "527.b6b2b96c.chunk.js.map": "/film_hub/static/js/527.b6b2b96c.chunk.js.map",
+    "544.3b257ca4.chunk.js.map": "/film_hub/static/js/544.3b257ca4.chunk.js.map",
+    "174.ccd88bc2.chunk.js.map": "/film_hub/static/js/174.ccd88bc2.chunk.js.map",
+    "670.6506b444.chunk.js.map": "/film_hub/static/js/670.6506b444.chunk.js.map",
     "240.8b104f0b.chunk.js.map": "/film_hub/static/js/240.8b104f0b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c2476634.css",
-    "static/js/main.389d61a5.js"
+    "static/js/main.84371227.js"
   ]
 }
